@@ -4,7 +4,7 @@ import { pillars, slides } from '../src/data/slides';
 test('lógica del contenido', () => {
   expect(slides).toHaveLength(13);
   const order = pillars.map((p) => p.id);
-  expect(order).toEqual(['conciencia', 'levantamiento', 'entrega', 'control', 'madurez']);
+  expect(order).toEqual(['conciencia', 'madurez', 'levantamiento', 'control', 'entrega']);
 
   // Slides 5–9 siguen el mismo orden de pilares.
   const detail = slides.filter((s) => s.kind === 'pillar-detail').map((s) => (s.kind === 'pillar-detail' ? s.pillarId : ''));

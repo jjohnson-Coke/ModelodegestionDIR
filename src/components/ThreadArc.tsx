@@ -19,10 +19,10 @@ const poses: readonly ArcPose[] = [
   { x: 1810, y: 200, rotate: 100, scale: 1, opacity: 0.6 }, // Objetivo
   { x: 1450, y: -620, rotate: 130, scale: 1, opacity: 0.5 }, // Pilares
   { x: 1830, y: 90, rotate: 160, scale: 1, opacity: 0.5 }, // Conciencia
-  { x: 1830, y: 90, rotate: 190, scale: 1, opacity: 0.5 }, // Levantamiento
-  { x: 1830, y: 90, rotate: 220, scale: 1, opacity: 0.5 }, // Entrega
+  { x: 1830, y: 90, rotate: 190, scale: 1, opacity: 0.5 }, // Madurez
+  { x: 1830, y: 90, rotate: 220, scale: 1, opacity: 0.5 }, // Levantamiento
   { x: 1830, y: 90, rotate: 250, scale: 1, opacity: 0.5 }, // Control
-  { x: 1830, y: 90, rotate: 280, scale: 1, opacity: 0.5 }, // Madurez
+  { x: 1830, y: 90, rotate: 280, scale: 1, opacity: 0.5 }, // Entrega
   { x: 1830, y: 260, rotate: 320, scale: 1, opacity: 0.5 }, // Mapeo
   { x: -760, y: 150, rotate: 380, scale: 1, opacity: 0.45 }, // Ciclo
   { x: 1830, y: 160, rotate: 420, scale: 1, opacity: 0.5 }, // Siguientes pasos

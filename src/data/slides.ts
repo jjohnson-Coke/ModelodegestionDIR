@@ -23,7 +23,7 @@ export type IconName =
   | 'users'
   | 'report';
 
-export type PillarId = 'conciencia' | 'levantamiento' | 'entrega' | 'control' | 'madurez';
+export type PillarId = 'conciencia' | 'madurez' | 'levantamiento' | 'control' | 'entrega';
 
 export interface Pillar {
   id: PillarId;
@@ -34,7 +34,7 @@ export interface Pillar {
   icon: IconName;
 }
 
-/** Orden canónico de los pilares: ciclo de vida de una solicitud. */
+/** Orden canónico de los pilares (se usa en todas las slides). */
 export const pillars: readonly Pillar[] = [
   {
     id: 'conciencia',
@@ -44,18 +44,18 @@ export const pillars: readonly Pillar[] = [
     icon: 'lightbulb',
   },
   {
+    id: 'madurez',
+    name: 'Madurez',
+    purpose: 'Asegurar que el avance es real y aceptado por el equipo.',
+    verb: 'Medir',
+    icon: 'gauge',
+  },
+  {
     id: 'levantamiento',
     name: 'Levantamiento',
     purpose: 'Facilitar y homologar las solicitudes de journeys y experiencias.',
     verb: 'Solicitar',
     icon: 'clipboard',
-  },
-  {
-    id: 'entrega',
-    name: 'Entrega',
-    purpose: 'Asegurar la priorización e implementación de los journeys y experiencias.',
-    verb: 'Priorizar e implementar',
-    icon: 'package',
   },
   {
     id: 'control',
@@ -65,11 +65,11 @@ export const pillars: readonly Pillar[] = [
     icon: 'shield',
   },
   {
-    id: 'madurez',
-    name: 'Madurez',
-    purpose: 'Asegurar que el avance es real y aceptado por el equipo.',
-    verb: 'Medir',
-    icon: 'gauge',
+    id: 'entrega',
+    name: 'Entrega',
+    purpose: 'Asegurar la priorización e implementación de los journeys y experiencias.',
+    verb: 'Priorizar e implementar',
+    icon: 'package',
   },
 ];
 
@@ -300,7 +300,7 @@ export const slides: readonly SlideData[] = [
     kicker: 'ESTO SÍ O SÍ DEBE SUCEDER',
     title: 'Pilares del modelo de gestión',
     notes:
-      'Cinco pilares en el orden del ciclo de vida de una solicitud: Conciencia, Levantamiento, Entrega, Control y Madurez.',
+      'Cinco pilares, en este orden: Conciencia, Madurez, Levantamiento, Control y Entrega.',
   },
   {
     id: 'conciencia',
@@ -333,6 +333,27 @@ export const slides: readonly SlideData[] = [
       'Conciencia: conocer nuestro proceso y la metodología de experiencia de 7 pasos. El documento de metodología ya está listo.',
   },
   {
+    id: 'madurez',
+    kind: 'pillar-detail',
+    pillarId: 'madurez',
+    kicker: 'ASEGURAR QUE EL AVANCE ES REAL Y ACEPTADO POR EL EQUIPO',
+    scopes: [
+      { id: 'respuesta', label: 'Respuesta del índice de madurez de CX' },
+      { id: 'analisis', label: 'Análisis del nivel de madurez' },
+      { id: 'recopilacion', label: 'Recopilación en noviembre y mayo' },
+    ],
+    enablers: [
+      {
+        id: 'qualtrics',
+        label: 'Formulario en Qualtrics',
+        serves: ['respuesta', 'recopilacion'],
+        status: 'por-desarrollar',
+      },
+    ],
+    extra: { type: 'gauge', label: 'Índice de madurez de CX · se mide dos veces al año' },
+    notes: 'Madurez: el índice de madurez de CX se recopila en noviembre y mayo con un formulario en Qualtrics.',
+  },
+  {
     id: 'levantamiento',
     kind: 'pillar-detail',
     pillarId: 'levantamiento',
@@ -353,6 +374,23 @@ export const slides: readonly SlideData[] = [
     extra: { type: 'funnel', output: 'Solicitud' },
     notes:
       'Levantamiento: correo, WhatsApp y reuniones se convierten en una sola solicitud homologada mediante un formulario en Typeform.',
+  },
+  {
+    id: 'control',
+    kind: 'pillar-detail',
+    pillarId: 'control',
+    kicker: 'INSTITUCIONALIZAR LAS RESPONSABILIDADES Y LA MEJORA CONTINUA',
+    scopes: [
+      { id: 'roles', label: 'Roles y funciones definidos' },
+      { id: 'reuniones', label: 'Reuniones de seguimiento bimestrales' },
+      { id: 'benchmark', label: 'Benchmark para actualización del modelo' },
+    ],
+    enablers: [
+      { id: 'matriz', label: 'Matriz de roles y funciones', serves: ['roles'], status: 'por-desarrollar' },
+      { id: 'calendario', label: 'Calendario de reuniones', serves: ['reuniones'], status: 'por-desarrollar' },
+    ],
+    notes:
+      'Control: roles y funciones definidos, reuniones de seguimiento bimestrales y benchmark para actualización del modelo.',
   },
   {
     id: 'entrega',
@@ -378,44 +416,6 @@ export const slides: readonly SlideData[] = [
       },
     ],
     notes: 'Entrega: reporte a TD para priorización y reporte a líderes de journey, con su estructura y calendarización.',
-  },
-  {
-    id: 'control',
-    kind: 'pillar-detail',
-    pillarId: 'control',
-    kicker: 'INSTITUCIONALIZAR LAS RESPONSABILIDADES Y LA MEJORA CONTINUA',
-    scopes: [
-      { id: 'roles', label: 'Roles y funciones definidos' },
-      { id: 'reuniones', label: 'Reuniones de seguimiento bimestrales' },
-      { id: 'benchmark', label: 'Benchmark para actualización del modelo' },
-    ],
-    enablers: [
-      { id: 'matriz', label: 'Matriz de roles y funciones', serves: ['roles'], status: 'por-desarrollar' },
-      { id: 'calendario', label: 'Calendario de reuniones', serves: ['reuniones'], status: 'por-desarrollar' },
-    ],
-    notes:
-      'Control: roles y funciones definidos, reuniones de seguimiento bimestrales y benchmark para actualización del modelo.',
-  },
-  {
-    id: 'madurez',
-    kind: 'pillar-detail',
-    pillarId: 'madurez',
-    kicker: 'ASEGURAR QUE EL AVANCE ES REAL Y ACEPTADO POR EL EQUIPO',
-    scopes: [
-      { id: 'respuesta', label: 'Respuesta del índice de madurez de CX' },
-      { id: 'analisis', label: 'Análisis del nivel de madurez' },
-      { id: 'recopilacion', label: 'Recopilación en noviembre y mayo' },
-    ],
-    enablers: [
-      {
-        id: 'qualtrics',
-        label: 'Formulario en Qualtrics',
-        serves: ['respuesta', 'recopilacion'],
-        status: 'por-desarrollar',
-      },
-    ],
-    extra: { type: 'gauge', label: 'Índice de madurez de CX · se mide dos veces al año' },
-    notes: 'Madurez: el índice de madurez de CX se recopila en noviembre y mayo con un formulario en Qualtrics.',
   },
   {
     id: 'mapeo',

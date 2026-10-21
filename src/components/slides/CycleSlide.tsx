@@ -59,7 +59,7 @@ export function CycleSlide({ slide }: { slide: CycleSlideData }) {
                 transition={{ delay: START, duration: pillars.length * STEP + 0.4, ease: 'easeInOut' }}
                 style={{ rotate: -90, originX: '50%', originY: '50%' }}
               />
-              {/* Retorno Madurez → Conciencia: alimenta la siguiente vuelta. */}
+              {/* Cierre del ciclo (último pilar → Conciencia): inicia la siguiente vuelta. */}
               <motion.path
                 d={arcPath(lastAngle, 270)}
                 fill="none"

@@ -55,7 +55,7 @@ test('recorre las 13 slides con flechas y regresa', async ({ page }) => {
 test('hash: #/7 abre la slide 7 y #/99 redirige a la 1', async ({ page }) => {
   await page.goto('./#/7');
   await expectSlide(page, 7);
-  await expect(page.getByTestId('slide')).toHaveAttribute('data-slide-id', 'entrega');
+  await expect(page.getByTestId('slide')).toHaveAttribute('data-slide-id', 'levantamiento');
 
   await page.goto('about:blank');
   await page.goto('./#/99');
@@ -125,7 +125,7 @@ test('resto de atajos, puntos, clics laterales y notas', async ({ page }) => {
   await page.waitForTimeout(3500);
   await page.getByRole('button', { name: 'Levantamiento' }).click();
   await page.waitForTimeout(LOCK_WAIT);
-  await expectSlide(page, 6);
+  await expectSlide(page, 7);
 
   // Notas del presentador: ocultas por defecto, N las alterna.
   await expect(page.getByTestId('notes')).toHaveCount(0);
@@ -137,7 +137,7 @@ test('resto de atajos, puntos, clics laterales y notas', async ({ page }) => {
   // F alterna pantalla completa sin errores.
   await press(page, 'f');
   await press(page, 'Escape');
-  await expectSlide(page, 6);
+  await expectSlide(page, 7);
 });
 
 test('botón de pantalla completa', async ({ page }) => {
