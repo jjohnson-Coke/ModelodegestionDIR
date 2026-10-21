@@ -140,6 +140,34 @@ test('resto de atajos, puntos, clics laterales y notas', async ({ page }) => {
   await expectSlide(page, 6);
 });
 
+test('botón de pantalla completa', async ({ page }) => {
+  await page.goto('./#/2');
+  await expectSlide(page, 2);
+  const button = page.getByTestId('fullscreen');
+  await expect(button).toHaveAttribute('aria-label', 'Pantalla completa (F)');
+
+  await button.click();
+  await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(true);
+  await expect(button).toHaveAttribute('aria-label', 'Salir de pantalla completa (F)');
+  await expect(button).toHaveAttribute('aria-pressed', 'true');
+
+  // Tras el clic, Espacio sigue avanzando slides (el botón no conserva el foco).
+  await press(page, ' ');
+  await expectSlide(page, 3);
+  await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(true);
+
+  await button.click();
+  await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(false);
+  await expect(button).toHaveAttribute('aria-label', 'Pantalla completa (F)');
+
+  // La tecla F hace lo mismo.
+  await press(page, 'f');
+  await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(true);
+  await press(page, 'f');
+  await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(false);
+  await expectSlide(page, 3);
+});
+
 test('el foco en un input ignora las teclas de navegación', async ({ page }) => {
   await page.goto('./#/3');
   await expectSlide(page, 3);

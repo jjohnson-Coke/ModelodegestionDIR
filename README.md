@@ -22,7 +22,7 @@ npm run test:e2e   # pruebas Playwright (compila y prueba el build de producció
 | Siguiente | → ↓ Espacio PageDown Enter · deslizar a la izquierda · clic en el tercio derecho |
 | Anterior | ← ↑ PageUp Backspace · deslizar a la derecha · clic en el tercio izquierdo |
 | Primera / última | Home / End |
-| Pantalla completa | F (Esc para salir) |
+| Pantalla completa | F o el botón junto al contador (Esc para salir) |
 | Notas del presentador | N |
 | Ir a una slide | puntos inferiores o URL `#/n` |
 

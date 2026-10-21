@@ -10,6 +10,7 @@ import { ThreadArc } from './components/ThreadArc';
 import { slides, type PillarId } from './data/slides';
 import { DeckContext, type DeckContextValue } from './hooks/deckContext';
 import { useDeck, useDeckKeyboard } from './hooks/useDeck';
+import { useFullscreen } from './hooks/useFullscreen';
 import { STAGE_HEIGHT, STAGE_WIDTH, useViewport } from './hooks/useViewport';
 
 const SWIPE_MIN = 50;
@@ -29,18 +30,6 @@ function slideVariants(reduce: boolean): Variants {
   };
 }
 
-function toggleFullscreen() {
-  if (document.fullscreenElement) {
-    void document.exitFullscreen().catch(() => undefined);
-  } else if (document.fullscreenEnabled) {
-    void document.documentElement.requestFullscreen().catch(() => undefined);
-  }
-}
-
-function exitFullscreen() {
-  if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
-}
-
 export default function App() {
   const deck = useDeck(slides.length);
   const { flow, scale } = useViewport();
@@ -49,7 +38,9 @@ export default function App() {
   const toggleNotes = useCallback(() => setNotesOpen((open) => !open), []);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
 
-  useDeckKeyboard({ deck, toggleFullscreen, exitFullscreen, toggleNotes });
+  const fullscreen = useFullscreen();
+
+  useDeckKeyboard({ deck, toggleFullscreen: fullscreen.toggle, exitFullscreen: fullscreen.exit, toggleNotes });
 
   const slide = slides[deck.index] ?? slides[0];
   if (!slide) throw new Error('La presentación no tiene slides');
@@ -156,7 +147,13 @@ export default function App() {
                 aria-hidden
               />
             ) : null}
-            <Chrome index={deck.index} total={deck.total} theme={theme} onSelect={goTo} />
+            <Chrome
+              index={deck.index}
+              total={deck.total}
+              theme={theme}
+              onSelect={goTo}
+              fullscreen={fullscreen.supported ? { active: fullscreen.isFullscreen, toggle: fullscreen.toggle } : undefined}
+            />
           </div>
 
           <NotesPanel open={notesOpen} notes={slide.notes} index={deck.index} total={deck.total} />
