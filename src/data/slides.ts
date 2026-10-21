@@ -383,14 +383,14 @@ export const slides: readonly SlideData[] = [
     scopes: [
       { id: 'roles', label: 'Roles y funciones definidos' },
       { id: 'reuniones', label: 'Reuniones de seguimiento bimestrales' },
-      { id: 'benchmark', label: 'Benchmark para actualización del modelo' },
+      { id: 'benchmark', label: 'Benchmark para actualización de journeys y experiencias' },
     ],
     enablers: [
       { id: 'matriz', label: 'Matriz de roles y funciones', serves: ['roles'], status: 'por-desarrollar' },
       { id: 'calendario', label: 'Calendario de reuniones', serves: ['reuniones'], status: 'por-desarrollar' },
     ],
     notes:
-      'Control: roles y funciones definidos, reuniones de seguimiento bimestrales y benchmark para actualización del modelo.',
+      'Control: roles y funciones definidos, reuniones de seguimiento bimestrales y benchmark para actualización de journeys y experiencias.',
   },
   {
     id: 'entrega',
