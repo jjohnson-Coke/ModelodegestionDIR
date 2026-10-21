@@ -1,0 +1,33 @@
+import type { SlideData } from '../data/slides';
+import { ClosingSlide } from './slides/ClosingSlide';
+import { CoverSlide } from './slides/CoverSlide';
+import { CycleSlide } from './slides/CycleSlide';
+import { MappingSlide } from './slides/MappingSlide';
+import { PillarDetailSlide } from './slides/PillarDetailSlide';
+import { PillarsOverviewSlide } from './slides/PillarsOverviewSlide';
+import { ProblemSlide } from './slides/ProblemSlide';
+import { RoadmapSlide } from './slides/RoadmapSlide';
+import { StatementSlide } from './slides/StatementSlide';
+
+export function SlideRenderer({ slide }: { slide: SlideData }) {
+  switch (slide.kind) {
+    case 'cover':
+      return <CoverSlide slide={slide} />;
+    case 'problem':
+      return <ProblemSlide slide={slide} />;
+    case 'statement':
+      return <StatementSlide slide={slide} />;
+    case 'pillars-overview':
+      return <PillarsOverviewSlide slide={slide} />;
+    case 'pillar-detail':
+      return <PillarDetailSlide slide={slide} />;
+    case 'mapping':
+      return <MappingSlide slide={slide} />;
+    case 'cycle':
+      return <CycleSlide slide={slide} />;
+    case 'roadmap':
+      return <RoadmapSlide slide={slide} />;
+    case 'closing':
+      return <ClosingSlide slide={slide} />;
+  }
+}

@@ -1,0 +1,35 @@
+import { expect, test } from '@playwright/test';
+import { pillars, slides } from '../src/data/slides';
+
+test('lógica del contenido', () => {
+  expect(slides).toHaveLength(13);
+  const order = pillars.map((p) => p.id);
+  expect(order).toEqual(['conciencia', 'levantamiento', 'entrega', 'control', 'madurez']);
+
+  // Slides 5–9 siguen el mismo orden de pilares.
+  const detail = slides.filter((s) => s.kind === 'pillar-detail').map((s) => (s.kind === 'pillar-detail' ? s.pillarId : ''));
+  expect(detail).toEqual(order);
+  expect(slides.slice(4, 9).every((s) => s.kind === 'pillar-detail')).toBe(true);
+
+  // Cada habilitador se conecta solo con alcances de su mismo pilar.
+  for (const s of slides) {
+    if (s.kind !== 'pillar-detail') continue;
+    const scopeIds = new Set(s.scopes.map((x) => x.id));
+    for (const e of s.enablers) {
+      expect(e.serves.length).toBeGreaterThan(0);
+      for (const id of e.serves) expect(scopeIds.has(id), `${e.id} → ${id}`).toBe(true);
+    }
+  }
+
+  // Los textos visibles usan "bimestral" de forma consistente.
+  const all = JSON.stringify(slides);
+  expect(all).not.toMatch(/bimensual|cada dos meses/i);
+  expect(all.match(/bimestrales/g)?.length).toBeGreaterThanOrEqual(2);
+
+  // Sin cifras inventadas: solo "7" (pasos), "2026" y "360" (marca TEC360).
+  const numbers = (all.match(/\d+/g) ?? []).filter((n) => !['7', '2026', '360'].includes(n));
+  expect(numbers).toEqual([]);
+
+  // Cada slide tiene notas del presentador.
+  for (const s of slides) expect(s.notes.length).toBeGreaterThan(10);
+});
