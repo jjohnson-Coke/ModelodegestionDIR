@@ -120,8 +120,8 @@ test('resto de atajos, puntos, clics laterales y notas', async ({ page }) => {
   await expectSlide(page, 10);
 
   // Enlace "→ Levantamiento" en Conciencia.
-  await page.goto('./#/5');
-  await expectSlide(page, 5);
+  await page.goto('./#/6');
+  await expectSlide(page, 6);
   await page.waitForTimeout(3500);
   await page.getByRole('button', { name: 'Levantamiento' }).click();
   await page.waitForTimeout(LOCK_WAIT);

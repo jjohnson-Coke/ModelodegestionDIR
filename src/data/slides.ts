@@ -23,7 +23,7 @@ export type IconName =
   | 'users'
   | 'report';
 
-export type PillarId = 'conciencia' | 'madurez' | 'levantamiento' | 'control' | 'entrega';
+export type PillarId = 'madurez' | 'conciencia' | 'levantamiento' | 'control' | 'entrega';
 
 export interface Pillar {
   id: PillarId;
@@ -37,18 +37,18 @@ export interface Pillar {
 /** Orden canónico de los pilares (se usa en todas las slides). */
 export const pillars: readonly Pillar[] = [
   {
-    id: 'conciencia',
-    name: 'Conciencia',
-    purpose: 'Conocer nuestro proceso y lo que es la experiencia.',
-    verb: 'Entender',
-    icon: 'lightbulb',
-  },
-  {
     id: 'madurez',
     name: 'Madurez',
     purpose: 'Asegurar que el avance es real y aceptado por el equipo.',
     verb: 'Medir',
     icon: 'gauge',
+  },
+  {
+    id: 'conciencia',
+    name: 'Conciencia',
+    purpose: 'Conocer nuestro proceso y lo que es la experiencia.',
+    verb: 'Entender',
+    icon: 'lightbulb',
   },
   {
     id: 'levantamiento',
@@ -140,6 +140,8 @@ export interface PillarsOverviewSlideData extends BaseSlide {
 export interface Scope {
   id: string;
   label: string;
+  /** Texto pequeño opcional debajo del alcance. */
+  note?: string;
 }
 
 export type EnablerStatus = 'listo' | 'por-desarrollar';
@@ -241,7 +243,7 @@ const problemCards: readonly ProblemCard[] = [
     id: 'aprobador',
     icon: 'scale',
     title: 'Aprobador juez y parte',
-    description: 'Hoy Edgar y Coke son quienes toman la decisión de qué journeys y experiencias se realizan.',
+    description: 'El líder funcional es el solicitante y aprobador de qué experiencias se diseñan.',
   },
   {
     id: 'conocimiento',
@@ -262,9 +264,9 @@ export const slides: readonly SlideData[] = [
     id: 'portada',
     kind: 'cover',
     title: 'Modelo de gestión de experiencia',
-    subtitle: 'Journeys y experiencias de la VPAF',
+    subtitle: 'Experiencias VPAF',
     footer: 'TEC360 · ®2026',
-    notes: 'Presentamos el Modelo de gestión de experiencia para los journeys y experiencias de la VPAF.',
+    notes: 'Presentamos el Modelo de gestión de experiencia para las experiencias de la VPAF.',
   },
   {
     id: 'as-is',
@@ -273,14 +275,14 @@ export const slides: readonly SlideData[] = [
     title: 'Esto sucede al día de hoy',
     cards: problemCards,
     notes:
-      'Hoy las solicitudes llegan por correo, WhatsApp y reuniones sin estructura, la decisión recae en Edgar y Coke, y los equipos operativos tienen poco conocimiento de lo que implica diseñar una experiencia.',
+      'Hoy las solicitudes llegan por correo, WhatsApp y reuniones sin estructura, el líder funcional es solicitante y aprobador a la vez, y los equipos operativos tienen poco conocimiento de lo que implica diseñar una experiencia.',
   },
   {
     id: 'objetivo',
     kind: 'statement',
     kicker: 'OBJETIVO · HACIA DÓNDE VAMOS',
     phrases: [
-      [{ text: 'Institucionalizar', highlight: true }, { text: ' un modelo de gestión de journeys' }],
+      [{ text: 'Institucionalizar', highlight: true }, { text: ' un modelo de gestión de experiencia' }],
       [{ text: 'que ' }, { text: 'estandarice', highlight: true }, { text: ' su diseño,' }],
       [{ text: 'homologue', highlight: true }, { text: ' los criterios de priorización' }],
       [
@@ -288,11 +290,11 @@ export const slides: readonly SlideData[] = [
         { text: 'establezca', highlight: true },
         { text: ' mecanismos de control, seguimiento y gobernanza' },
       ],
-      [{ text: 'para todos los journeys de la VPAF.' }],
+      [{ text: 'para todas las experiencias de la VPAF.' }],
     ],
     chips: ['Institucionalizar', 'Estandarizar', 'Homologar', 'Establecer control'],
     notes:
-      'El objetivo: institucionalizar un modelo de gestión de journeys que estandarice su diseño, homologue los criterios de priorización y establezca control, seguimiento y gobernanza.',
+      'El objetivo: institucionalizar un modelo de gestión de experiencia que estandarice su diseño, homologue los criterios de priorización y establezca control, seguimiento y gobernanza para todas las experiencias de la VPAF.',
   },
   {
     id: 'pilares',
@@ -300,37 +302,7 @@ export const slides: readonly SlideData[] = [
     kicker: 'ESTO SÍ O SÍ DEBE SUCEDER',
     title: 'Pilares del modelo de gestión',
     notes:
-      'Cinco pilares, en este orden: Conciencia, Madurez, Levantamiento, Control y Entrega.',
-  },
-  {
-    id: 'conciencia',
-    kind: 'pillar-detail',
-    pillarId: 'conciencia',
-    kicker: 'CONOCE NUESTRO PROCESO Y LO QUE ES LA EXPERIENCIA',
-    scopes: [
-      { id: 'metodologia', label: 'Metodología de experiencia (7 pasos)' },
-      { id: 'minimos', label: 'Mínimos a cubrir' },
-      { id: 'entregables', label: 'Entregables otorgados' },
-    ],
-    enablers: [
-      { id: 'doc-metodologia', label: 'Documento de metodología', serves: ['metodologia'], status: 'listo' },
-      {
-        id: 'lista-entregables',
-        label: 'Lista de entregables otorgados',
-        serves: ['minimos', 'entregables'],
-        status: 'por-desarrollar',
-      },
-      {
-        id: 'embeber-documentos',
-        label: 'Embeber documentos en formulario de levantamiento',
-        serves: ['metodologia'],
-        status: 'por-desarrollar',
-        linksTo: 'levantamiento',
-      },
-    ],
-    extra: { type: 'steps', count: 7, label: 'Metodología de experiencia · 7 pasos' },
-    notes:
-      'Conciencia: conocer nuestro proceso y la metodología de experiencia de 7 pasos. El documento de metodología ya está listo.',
+      'Cinco pilares, en este orden: Madurez, Conciencia, Levantamiento, Control y Entrega.',
   },
   {
     id: 'madurez',
@@ -354,12 +326,42 @@ export const slides: readonly SlideData[] = [
     notes: 'Madurez: el índice de madurez de CX se recopila en noviembre y mayo con un formulario en Qualtrics.',
   },
   {
+    id: 'conciencia',
+    kind: 'pillar-detail',
+    pillarId: 'conciencia',
+    kicker: 'CONOCE NUESTRO PROCESO Y LO QUE ES LA EXPERIENCIA',
+    scopes: [
+      { id: 'metodologia', label: 'Metodología de experiencia (7 pasos)' },
+      { id: 'minimos', label: 'Mínimos a cubrir', note: '(Presupuesto, tiempo, aprobador, etc.)' },
+      { id: 'entregables', label: 'Entregables otorgados', note: '(Journey infinito, lineal, experiencia diseñada, etc.)' },
+    ],
+    enablers: [
+      { id: 'doc-metodologia', label: 'Documento de metodología', serves: ['metodologia'], status: 'listo' },
+      {
+        id: 'lista-entregables',
+        label: 'Lista de entregables otorgados',
+        serves: ['minimos', 'entregables'],
+        status: 'por-desarrollar',
+      },
+      {
+        id: 'embeber-documentos',
+        label: 'Embeber documentos en formulario de levantamiento',
+        serves: ['metodologia'],
+        status: 'por-desarrollar',
+        linksTo: 'levantamiento',
+      },
+    ],
+    extra: { type: 'steps', count: 7, label: 'Metodología de experiencia · 7 pasos' },
+    notes:
+      'Conciencia: conocer nuestro proceso y la metodología de experiencia de 7 pasos. El documento de metodología ya está listo.',
+  },
+  {
     id: 'levantamiento',
     kind: 'pillar-detail',
     pillarId: 'levantamiento',
     kicker: 'FACILITAR Y HOMOLOGAR LAS SOLICITUDES DE JOURNEYS Y EXPERIENCIAS',
     scopes: [
-      { id: 'sistema', label: 'Sistema de levantamiento de solicitudes' },
+      { id: 'sistema', label: 'Sistema de levantamiento de solicitudes independientes y estratégicas' },
       { id: 'criterios', label: 'Homologación de criterios de aceptación' },
       { id: 'razones', label: 'Conocimiento de razones de aceptación o rechazo' },
     ],
@@ -400,14 +402,9 @@ export const slides: readonly SlideData[] = [
     scopes: [
       { id: 'reporte-td', label: 'Reporte a TD para priorización' },
       { id: 'reporte-lideres', label: 'Reporte a líderes de journey' },
+      { id: 'reporte-gerentes', label: 'Reporte a gerentes de producto' },
     ],
     enablers: [
-      {
-        id: 'estructura-reporte',
-        label: 'Estructura de reporte a líderes',
-        serves: ['reporte-lideres'],
-        status: 'por-desarrollar',
-      },
       {
         id: 'calendarizacion',
         label: 'Calendarización de entregas a TD',
@@ -415,7 +412,8 @@ export const slides: readonly SlideData[] = [
         status: 'por-desarrollar',
       },
     ],
-    notes: 'Entrega: reporte a TD para priorización y reporte a líderes de journey, con su estructura y calendarización.',
+    notes:
+      'Entrega: reporte a TD para priorización, reporte a líderes de journey y reporte a gerentes de producto, con la calendarización de entregas a TD.',
   },
   {
     id: 'mapeo',
@@ -451,7 +449,12 @@ export const slides: readonly SlideData[] = [
     kind: 'roadmap',
     kicker: 'CÓMO LO HACEMOS REALIDAD',
     title: 'Siguientes pasos',
-    steps: ['Desarrollo de habilitadores', 'Toque de base con el equipo DEAP', 'Socialización con equipos operativos'],
+    steps: [
+      'Desarrollo de herramientas',
+      'Toque de base con el equipo DEAP',
+      'Socialización con equipos operativos',
+      'Envío de encuesta índice de madurez de CX',
+    ],
     cadence: {
       title: 'Cadencia de gobernanza',
       chips: [
@@ -461,7 +464,7 @@ export const slides: readonly SlideData[] = [
     },
     repository: { title: 'Repositorio del modelo', label: 'SharePoint · Experiencia de aprendedores' },
     notes:
-      'Siguientes pasos: desarrollo de habilitadores, toque de base con el equipo DEAP y socialización con equipos operativos.',
+      'Siguientes pasos: desarrollo de herramientas, toque de base con el equipo DEAP, socialización con equipos operativos y envío de encuesta índice de madurez de CX.',
   },
   {
     id: 'cierre',

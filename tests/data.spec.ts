@@ -4,14 +4,14 @@ import { pillars, slides } from '../src/data/slides';
 test('lógica del contenido', () => {
   expect(slides).toHaveLength(13);
   const order = pillars.map((p) => p.id);
-  expect(order).toEqual(['conciencia', 'madurez', 'levantamiento', 'control', 'entrega']);
+  expect(order).toEqual(['madurez', 'conciencia', 'levantamiento', 'control', 'entrega']);
 
   // Slides 5–9 siguen el mismo orden de pilares.
   const detail = slides.filter((s) => s.kind === 'pillar-detail').map((s) => (s.kind === 'pillar-detail' ? s.pillarId : ''));
   expect(detail).toEqual(order);
   expect(slides.slice(4, 9).every((s) => s.kind === 'pillar-detail')).toBe(true);
 
-  // Cada habilitador se conecta solo con alcances de su mismo pilar.
+  // Cada herramienta se conecta solo con alcances de su mismo pilar.
   for (const s of slides) {
     if (s.kind !== 'pillar-detail') continue;
     const scopeIds = new Set(s.scopes.map((x) => x.id));

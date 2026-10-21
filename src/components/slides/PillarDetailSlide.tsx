@@ -165,7 +165,12 @@ export function PillarDetailSlide({ slide }: { slide: PillarDetailSlideData }) {
                   className="flex min-h-[96px] items-center gap-5 rounded-card bg-white px-7 py-5 shadow-card m:min-h-0 m:gap-3 m:px-4 m:py-3"
                 >
                   <NumberBadge n={i + 1} />
-                  <span className="text-[27px] font-semibold leading-snug text-brand-ink m:text-base">{scope.label}</span>
+                  <span className="flex flex-col">
+                    <span className="text-[27px] font-semibold leading-snug text-brand-ink m:text-base">{scope.label}</span>
+                    {scope.note ? (
+                      <span className="mt-1 text-[19px] font-medium leading-snug text-brand-ink-2 m:text-xs">{scope.note}</span>
+                    ) : null}
+                  </span>
                 </motion.li>
               ))}
             </ul>
@@ -175,7 +180,7 @@ export function PillarDetailSlide({ slide }: { slide: PillarDetailSlideData }) {
 
           <div>
             <ColumnHeading
-              title="Habilitadores"
+              title="Herramientas"
               description="Lo que necesitamos construir para lograrlo."
               delay={enablerStart - 0.15}
             />

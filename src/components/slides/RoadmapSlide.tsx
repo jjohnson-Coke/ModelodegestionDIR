@@ -14,7 +14,10 @@ export function RoadmapSlide({ slide }: { slide: RoadmapSlideData }) {
   return (
     <SlideFrame kicker={slide.kicker} title={slide.title}>
       <div className="flex flex-1 flex-col justify-center gap-24 m:justify-start m:gap-8">
-        <ol className="relative mt-4 grid grid-cols-3 gap-10 m:mt-0 m:grid-cols-1 m:gap-6">
+        <ol
+          className="relative mt-4 grid gap-10 m:mt-0 m:!grid-cols-1 m:gap-6"
+          style={{ gridTemplateColumns: `repeat(${slide.steps.length}, minmax(0, 1fr))` }}
+        >
           {slide.steps.map((step, i) => (
             <li key={step} className="relative">
               {i < slide.steps.length - 1 ? (
@@ -35,7 +38,7 @@ export function RoadmapSlide({ slide }: { slide: RoadmapSlideData }) {
                 <span className="relative z-10 flex h-[112px] w-[112px] items-center justify-center rounded-full border-4 border-brand-cyan bg-white text-[48px] font-extrabold text-brand-ink shadow-card m:h-12 m:w-12 m:shrink-0 m:border-2 m:text-xl">
                   {i + 1}
                 </span>
-                <p className="mt-8 max-w-[460px] text-[38px] font-extrabold leading-tight text-brand-ink m:mt-0 m:text-lg">{step}</p>
+                <p className="mt-8 max-w-[460px] text-[34px] font-extrabold leading-tight text-brand-ink m:mt-0 m:text-lg">{step}</p>
               </motion.div>
             </li>
           ))}
