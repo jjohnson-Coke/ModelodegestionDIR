@@ -1,7 +1,37 @@
 import { motion } from 'framer-motion';
 import type { CoverSlideData } from '../../data/slides';
 import { EASE_OUT, at } from '../motion';
+import { useDeckContext } from '../../hooks/deckContext';
+import { STAGE_HEIGHT, STAGE_WIDTH } from '../../hooks/useViewport';
+import { ARC_SIZE, COVER_ARC_POSITION } from '../arcGeometry';
 import { Logo } from '../ui';
+
+/** Logo TEC360 centrado dentro del arco cian de la portada (mismas coordenadas del lienzo 1920×1080). */
+function ArcLogo() {
+  const { flow } = useDeckContext();
+  // En modo de flujo el arco se escala al ancho de la pantalla; el logo lo acompaña.
+  const scale = flow ? window.innerWidth / STAGE_WIDTH : 1;
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute left-0 top-0 origin-top-left"
+      style={{ width: STAGE_WIDTH, height: STAGE_HEIGHT, transform: `scale(${scale})` }}
+    >
+      <div
+        className="absolute flex items-center justify-center"
+        style={{ left: COVER_ARC_POSITION.x, top: COVER_ARC_POSITION.y, width: ARC_SIZE, height: ARC_SIZE }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={at(0.9, 0.9)}
+        >
+          <Logo className="text-[136px] leading-none" />
+        </motion.div>
+      </div>
+    </div>
+  );
+}
 
 const wordContainer = {
   hidden: {},
@@ -21,6 +51,7 @@ export function CoverSlide({ slide }: { slide: CoverSlideData }) {
       animate="show"
       className="relative flex h-full flex-col justify-center px-[140px] m:min-h-full m:justify-end m:px-6 m:pb-44 m:pt-24"
     >
+      <ArcLogo />
       <motion.h1
         variants={wordContainer}
         className="max-w-[1000px] text-[112px] font-extrabold leading-[1.02] tracking-[-0.03em] text-white m:text-[44px]"

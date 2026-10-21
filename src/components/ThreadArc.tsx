@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import type { SlideTheme } from './theme';
+import { ARC_SIZE, COVER_ARC_POSITION } from './arcGeometry';
 import { EASE_OUT } from './motion';
 
 type ArcPose = {
@@ -12,9 +13,11 @@ type ArcPose = {
 
 const HIDDEN: ArcPose = { x: 0, y: 0, rotate: 0, scale: 1, opacity: 0 };
 
+const SIZE = ARC_SIZE;
+
 /** Posición del arco (coordenadas del lienzo 1920×1080) por slide: hilo conductor visual. */
 const poses: readonly ArcPose[] = [
-  { x: 1020, y: 90, rotate: 0, scale: 1, opacity: 0.95 }, // Portada
+  { ...COVER_ARC_POSITION, rotate: 0, scale: 1, opacity: 0.95 }, // Portada
   { x: 1430, y: -560, rotate: 40, scale: 1, opacity: 0.55 }, // AS IS
   { x: 1810, y: 200, rotate: 100, scale: 1, opacity: 0.6 }, // Objetivo
   { x: 1450, y: -620, rotate: 130, scale: 1, opacity: 0.5 }, // Pilares
@@ -29,7 +32,6 @@ const poses: readonly ArcPose[] = [
   { x: 510, y: 90, rotate: 450, scale: 1, opacity: 0 }, // Cierre (el arco propio de la slide toma el relevo)
 ];
 
-const SIZE = 900;
 const R = 410;
 // Arco abierto de ~290°, como el anillo del deck original.
 const ARC = `M ${SIZE / 2 + R * Math.cos(-0.35 * Math.PI)} ${SIZE / 2 + R * Math.sin(-0.35 * Math.PI)} A ${R} ${R} 0 1 1 ${
