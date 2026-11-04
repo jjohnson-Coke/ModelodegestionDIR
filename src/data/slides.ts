@@ -535,7 +535,6 @@ export const slides: readonly SlideData[] = [
     kind: 'testimonials',
     kicker: 'LO QUE DICEN LOS EQUIPOS',
     title: 'Testimonios',
-    // Marcador pendiente: reemplazar `quote`, `author` y `role` con el testimonio real y quitar `pending`.
     testimonials: [
       {
         id: 'testimonio-a',
@@ -546,14 +545,14 @@ export const slides: readonly SlideData[] = [
       },
       {
         id: 'testimonio-b',
-        quote: 'Aquí irá el segundo testimonio.',
-        author: 'Nombre',
-        role: 'Puesto · Área',
-        pending: true,
+        quote:
+          'Me gustó mucho la experiencia, ya que fue un proceso guiado con cuidado y apertura a la creatividad. Me permitió aportar ideas desde mi experiencia y el conocimiento adquirido durante tantos años de atención a nuestros clientes. Fue muy enriquecedor construir juntos una visión centrada en el aprendedor buscando mejorar su experiencia en cada etapa.',
+        author: 'Bertha',
+        role: 'Equipo de Vivencia B2C',
       },
     ],
     notes:
-      'Natalia, del equipo de Membresías, comparte cómo el journey les ayudó a identificar los pasos a seguir, las áreas a involucrar y los puntos clave para brindar la mejor experiencia a su cliente. El segundo testimonio está pendiente.',
+      'Natalia (Membresías) destaca cómo el journey les ayudó a identificar pasos, áreas a involucrar y puntos clave; Bertha (Vivencia B2C) valora un proceso guiado, abierto a la creatividad y centrado en el aprendedor.',
   },
   {
     id: 'preguntas-frecuentes',
