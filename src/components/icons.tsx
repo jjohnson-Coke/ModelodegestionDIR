@@ -1,6 +1,7 @@
 import {
   CalendarDays,
   CalendarX,
+  Cpu,
   Clock,
   ClipboardList,
   FileText,
@@ -9,12 +10,14 @@ import {
   GraduationCap,
   Handshake,
   Inbox,
+  Layers,
   Lightbulb,
   ListChecks,
   ListOrdered,
   Mail,
   MessageCircle,
   NotebookPen,
+  PenTool,
   PackageCheck,
   Presentation,
   RefreshCw,
@@ -24,6 +27,7 @@ import {
   UserRound,
   Users,
   Wallet,
+  Workflow,
   Wrench,
   type LucideIcon,
 } from 'lucide-react';
@@ -57,6 +61,10 @@ const iconMap: Record<IconName, LucideIcon> = {
   wallet: Wallet,
   handshake: Handshake,
   user: UserRound,
+  pen: PenTool,
+  workflow: Workflow,
+  layers: Layers,
+  cpu: Cpu,
 };
 
 interface IconProps {

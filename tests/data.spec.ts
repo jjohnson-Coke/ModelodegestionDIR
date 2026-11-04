@@ -2,14 +2,14 @@ import { expect, test } from '@playwright/test';
 import { pillars, slides } from '../src/data/slides';
 
 test('lógica del contenido', () => {
-  expect(slides).toHaveLength(16);
+  expect(slides).toHaveLength(17);
   const order = pillars.map((p) => p.id);
   expect(order).toEqual(['madurez', 'conciencia', 'levantamiento', 'control', 'entrega']);
 
   // Slides 5–9 siguen el mismo orden de pilares.
   const detail = slides.filter((s) => s.kind === 'pillar-detail').map((s) => (s.kind === 'pillar-detail' ? s.pillarId : ''));
   expect(detail).toEqual(order);
-  expect(slides.slice(5, 10).every((s) => s.kind === 'pillar-detail')).toBe(true);
+  expect(slides.slice(6, 11).every((s) => s.kind === 'pillar-detail')).toBe(true);
 
   // Estado de journeys: los grupos suman el total.
   for (const s of slides) {

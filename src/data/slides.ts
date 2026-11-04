@@ -30,7 +30,11 @@ export type IconName =
   | 'refresh'
   | 'wallet'
   | 'handshake'
-  | 'user';
+  | 'user'
+  | 'pen'
+  | 'workflow'
+  | 'layers'
+  | 'cpu';
 
 export type PillarId = 'madurez' | 'conciencia' | 'levantamiento' | 'control' | 'entrega';
 
@@ -161,6 +165,28 @@ export interface JourneysSlideData extends BaseSlide {
   groups: readonly JourneyStatusGroup[];
 }
 
+export interface ProcessStep {
+  id: string;
+  icon: IconName;
+  title: string;
+  /** Área responsable del paso. */
+  owner: string;
+  /** true si el paso lo lidera el equipo de Experiencia (se destaca en cian). */
+  ledByExperience?: boolean;
+  /** Área que acompaña el paso (se muestra debajo de la tarjeta). */
+  support?: string;
+}
+
+export interface ProcessSlideData extends BaseSlide {
+  kind: 'process';
+  kicker: string;
+  title: string;
+  ownerLabel: string;
+  steps: readonly ProcessStep[];
+  legend: { experience: string; others: string; support: string };
+  note: string;
+}
+
 export interface PillarsOverviewSlideData extends BaseSlide {
   kind: 'pillars-overview';
   kicker: string;
@@ -283,6 +309,7 @@ export type SlideData =
   | ProblemSlideData
   | StatementSlideData
   | JourneysSlideData
+  | ProcessSlideData
   | PillarsOverviewSlideData
   | PillarDetailSlideData
   | MappingSlideData
@@ -381,6 +408,38 @@ export const slides: readonly SlideData[] = [
     ],
     notes:
       'Al día de hoy hemos desarrollado 6 journeys: B2C está en priorización y desarrollo; B2B y Freemium están en la fila; Centro de idiomas, Educación para el desarrollo y Membresías no tienen una fecha clara para priorizarlos.',
+  },
+  {
+    id: 'proceso-habilitacion',
+    kind: 'process',
+    kicker: 'PROCESO DE HABILITACIÓN DE UN JOURNEY',
+    title: 'Del diseño a la habilitación tecnológica',
+    ownerLabel: 'Responsable',
+    steps: [
+      { id: 'diseno', icon: 'pen', title: 'Diseño', owner: 'Experiencia', ledByExperience: true },
+      { id: 'procesos', icon: 'workflow', title: 'Procesos', owner: 'Equipo de Procesos' },
+      {
+        id: 'epicas',
+        icon: 'layers',
+        title: 'Épicas, HU’s y priorización',
+        owner: 'Gerentes de producto',
+        support: 'Experiencia',
+      },
+      {
+        id: 'habilitacion',
+        icon: 'cpu',
+        title: 'Habilitación tecnológica y factibilidad',
+        owner: 'Transformación digital',
+      },
+    ],
+    legend: {
+      experience: 'Lidera Experiencia',
+      others: 'Lidera otra área',
+      support: 'Experiencia acompaña',
+    },
+    note: 'Experiencia diseña el journey y acompaña su priorización hasta que pasa a habilitación tecnológica.',
+    notes:
+      'Un journey se habilita en cuatro pasos: Diseño (Experiencia), Procesos (Equipo de Procesos), Épicas, HU’s y priorización (Gerentes de producto, con acompañamiento de Experiencia) y Habilitación tecnológica y factibilidad (Transformación digital).',
   },
   {
     id: 'pilares',

@@ -21,6 +21,7 @@ const poses: readonly ArcPose[] = [
   { x: 1430, y: -560, rotate: 40, scale: 1, opacity: 0.55 }, // AS IS
   { x: 1810, y: 200, rotate: 100, scale: 1, opacity: 0.6 }, // Objetivo
   { x: 1440, y: -600, rotate: 115, scale: 1, opacity: 0.5 }, // Journeys al día de hoy
+  { x: 1830, y: 380, rotate: 125, scale: 1, opacity: 0.5 }, // Proceso de habilitación
   { x: 1450, y: -620, rotate: 130, scale: 1, opacity: 0.5 }, // Pilares
   { x: 1830, y: 90, rotate: 160, scale: 1, opacity: 0.5 }, // Madurez
   { x: 1830, y: 90, rotate: 190, scale: 1, opacity: 0.5 }, // Conciencia
