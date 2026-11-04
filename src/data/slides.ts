@@ -535,14 +535,14 @@ export const slides: readonly SlideData[] = [
     kind: 'testimonials',
     kicker: 'LO QUE DICEN LOS EQUIPOS',
     title: 'Testimonios',
-    // Marcadores: reemplazar `quote`, `author` y `role` con los testimonios reales y quitar `pending`.
+    // Marcador pendiente: reemplazar `quote`, `author` y `role` con el testimonio real y quitar `pending`.
     testimonials: [
       {
         id: 'testimonio-a',
-        quote: 'Aquí irá el primer testimonio.',
-        author: 'Nombre',
-        role: 'Puesto · Área',
-        pending: true,
+        quote:
+          'Fueron un gran apoyo en la construcción del journey del modelo de membresías. Siempre estuvieron dispuestos a escuchar las necesidades e ideas que teníamos y nos ayudaron a aterrizarlas y plasmarlas en un journey que posteriormente nos dio luz para identificar los pasos a seguir, las áreas a las que tenemos que involucrar y los puntos claves que debemos cuidar para llegar al sueño de brindarle la mejor experiencia a nuestro cliente.',
+        author: 'Natalia',
+        role: 'Equipo de Membresías',
       },
       {
         id: 'testimonio-b',
@@ -552,7 +552,8 @@ export const slides: readonly SlideData[] = [
         pending: true,
       },
     ],
-    notes: 'Testimonios de equipos que ya trabajaron con el modelo (pendientes de incorporar).',
+    notes:
+      'Natalia, del equipo de Membresías, comparte cómo el journey les ayudó a identificar los pasos a seguir, las áreas a involucrar y los puntos clave para brindar la mejor experiencia a su cliente. El segundo testimonio está pendiente.',
   },
   {
     id: 'preguntas-frecuentes',

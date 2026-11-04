@@ -40,6 +40,8 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
   }, [reduce, start]);
 
   const pending = testimonial.pending ?? false;
+  // Los testimonios largos usan un tamaño menor para caber en la burbuja.
+  const long = testimonial.quote.length > 180;
 
   return (
     <motion.article
@@ -50,7 +52,7 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
     >
       {/* Burbuja de mensaje: primero el indicador de escritura, luego el testimonio. */}
       <div
-        className={`relative flex min-h-[300px] items-center rounded-card rounded-bl-md border-2 px-12 py-10 shadow-card m:min-h-[150px] m:px-5 m:py-5 ${
+        className={`relative flex min-h-[300px] flex-1 items-center rounded-card rounded-bl-md border-2 px-12 py-10 shadow-card m:min-h-[150px] m:px-5 m:py-5 ${
           pending ? 'border-dashed border-brand-ink/25 bg-white/80' : 'border-transparent bg-white'
         }`}
       >
@@ -63,9 +65,9 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
               transition={{ duration: 0.5, ease: EASE_OUT }}
               className="flex w-full flex-col gap-5 m:gap-3"
             >
-              <Quote className="h-12 w-12 text-brand-cyan m:h-7 m:w-7" strokeWidth={2} aria-hidden />
+              <Quote className={`text-brand-cyan m:h-7 m:w-7 ${long ? 'h-9 w-9' : 'h-12 w-12'}`} strokeWidth={2} aria-hidden />
               <p
-                className={`text-[34px] font-semibold leading-snug m:text-lg ${
+                className={`font-semibold m:text-base ${long ? 'text-[25px] leading-[1.5]' : 'text-[34px] leading-snug m:text-lg'} ${
                   pending ? 'italic text-brand-ink-2' : 'text-brand-ink'
                 }`}
               >
