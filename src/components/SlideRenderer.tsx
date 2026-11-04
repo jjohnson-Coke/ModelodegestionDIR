@@ -2,6 +2,7 @@ import type { SlideData } from '../data/slides';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { CoverSlide } from './slides/CoverSlide';
 import { CycleSlide } from './slides/CycleSlide';
+import { JourneysSlide } from './slides/JourneysSlide';
 import { MappingSlide } from './slides/MappingSlide';
 import { PillarDetailSlide } from './slides/PillarDetailSlide';
 import { PillarsOverviewSlide } from './slides/PillarsOverviewSlide';
@@ -17,6 +18,8 @@ export function SlideRenderer({ slide }: { slide: SlideData }) {
       return <ProblemSlide slide={slide} />;
     case 'statement':
       return <StatementSlide slide={slide} />;
+    case 'journeys':
+      return <JourneysSlide slide={slide} />;
     case 'pillars-overview':
       return <PillarsOverviewSlide slide={slide} />;
     case 'pillar-detail':

@@ -1,5 +1,6 @@
 import {
   CalendarDays,
+  CalendarX,
   ClipboardList,
   FileText,
   FolderOpen,
@@ -8,14 +9,17 @@ import {
   Inbox,
   Lightbulb,
   ListChecks,
+  ListOrdered,
   Mail,
   MessageCircle,
   NotebookPen,
   PackageCheck,
   Presentation,
+  Route,
   Scale,
   ShieldCheck,
   Users,
+  Wrench,
   type LucideIcon,
 } from 'lucide-react';
 import type { IconName } from '../data/slides';
@@ -39,6 +43,10 @@ const iconMap: Record<IconName, LucideIcon> = {
   calendar: CalendarDays,
   users: Users,
   report: Presentation,
+  route: Route,
+  wrench: Wrench,
+  queue: ListOrdered,
+  'calendar-x': CalendarX,
 };
 
 interface IconProps {

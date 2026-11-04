@@ -21,7 +21,11 @@ export type IconName =
   | 'list'
   | 'calendar'
   | 'users'
-  | 'report';
+  | 'report'
+  | 'route'
+  | 'wrench'
+  | 'queue'
+  | 'calendar-x';
 
 export type PillarId = 'madurez' | 'conciencia' | 'levantamiento' | 'control' | 'entrega';
 
@@ -131,6 +135,26 @@ export interface StatementSlideData extends BaseSlide {
   chips: readonly string[];
 }
 
+export type JourneyStatusTone = 'active' | 'queued' | 'unscheduled';
+
+export interface JourneyStatusGroup {
+  id: string;
+  count: number;
+  label: string;
+  tone: JourneyStatusTone;
+  icon: IconName;
+}
+
+export interface JourneysSlideData extends BaseSlide {
+  kind: 'journeys';
+  kicker: string;
+  /** El título se arma como: `${titleBefore} ${total} ${titleAfter}` (el número se anima). */
+  titleBefore: string;
+  total: number;
+  titleAfter: string;
+  groups: readonly JourneyStatusGroup[];
+}
+
 export interface PillarsOverviewSlideData extends BaseSlide {
   kind: 'pillars-overview';
   kicker: string;
@@ -220,6 +244,7 @@ export type SlideData =
   | CoverSlideData
   | ProblemSlideData
   | StatementSlideData
+  | JourneysSlideData
   | PillarsOverviewSlideData
   | PillarDetailSlideData
   | MappingSlideData
@@ -295,6 +320,27 @@ export const slides: readonly SlideData[] = [
     chips: ['Institucionalizar', 'Estandarizar', 'Homologar', 'Establecer control'],
     notes:
       'El objetivo: institucionalizar un modelo de gestión de experiencia que estandarice su diseño, homologue los criterios de priorización y establezca control, seguimiento y gobernanza para todas las experiencias de la VPAF.',
+  },
+  {
+    id: 'journeys-hoy',
+    kind: 'journeys',
+    kicker: 'LO QUE HEMOS TRABAJADO AL DÍA DE HOY',
+    titleBefore: 'Hemos desarrollado',
+    total: 6,
+    titleAfter: 'journeys',
+    groups: [
+      { id: 'desarrollo', count: 1, label: 'En priorización y desarrollo', tone: 'active', icon: 'wrench' },
+      { id: 'fila', count: 2, label: 'En la fila', tone: 'queued', icon: 'queue' },
+      {
+        id: 'sin-fecha',
+        count: 3,
+        label: 'Sin una fecha clara para priorizarlos',
+        tone: 'unscheduled',
+        icon: 'calendar-x',
+      },
+    ],
+    notes:
+      'Al día de hoy hemos desarrollado 6 journeys: 1 está en priorización y desarrollo, 2 están en la fila y 3 no tienen una fecha clara para priorizarlos.',
   },
   {
     id: 'pilares',

@@ -2,14 +2,20 @@ import { expect, test } from '@playwright/test';
 import { pillars, slides } from '../src/data/slides';
 
 test('lógica del contenido', () => {
-  expect(slides).toHaveLength(13);
+  expect(slides).toHaveLength(14);
   const order = pillars.map((p) => p.id);
   expect(order).toEqual(['madurez', 'conciencia', 'levantamiento', 'control', 'entrega']);
 
   // Slides 5–9 siguen el mismo orden de pilares.
   const detail = slides.filter((s) => s.kind === 'pillar-detail').map((s) => (s.kind === 'pillar-detail' ? s.pillarId : ''));
   expect(detail).toEqual(order);
-  expect(slides.slice(4, 9).every((s) => s.kind === 'pillar-detail')).toBe(true);
+  expect(slides.slice(5, 10).every((s) => s.kind === 'pillar-detail')).toBe(true);
+
+  // Estado de journeys: los grupos suman el total.
+  for (const s of slides) {
+    if (s.kind !== 'journeys') continue;
+    expect(s.groups.reduce((sum, g) => sum + g.count, 0)).toBe(s.total);
+  }
 
   // Cada herramienta se conecta solo con alcances de su mismo pilar.
   for (const s of slides) {
@@ -26,8 +32,8 @@ test('lógica del contenido', () => {
   expect(all).not.toMatch(/bimensual|cada dos meses/i);
   expect(all.match(/bimestrales/g)?.length).toBeGreaterThanOrEqual(2);
 
-  // Sin cifras inventadas: solo "7" (pasos), "2026" y "360" (marca TEC360).
-  const numbers = (all.match(/\d+/g) ?? []).filter((n) => !['7', '2026', '360'].includes(n));
+  // Sin cifras inventadas: solo "7" (pasos), "2026", "360" (marca TEC360) y el estado de journeys (6 = 1 + 2 + 3).
+  const numbers = (all.match(/\d+/g) ?? []).filter((n) => !['1', '2', '3', '6', '7', '2026', '360'].includes(n));
   expect(numbers).toEqual([]);
 
   // Cada slide tiene notas del presentador.
