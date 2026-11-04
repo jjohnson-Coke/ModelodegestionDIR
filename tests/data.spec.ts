@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { pillars, slides } from '../src/data/slides';
 
 test('lógica del contenido', () => {
-  expect(slides).toHaveLength(14);
+  expect(slides).toHaveLength(16);
   const order = pillars.map((p) => p.id);
   expect(order).toEqual(['madurez', 'conciencia', 'levantamiento', 'control', 'entrega']);
 
@@ -32,8 +32,8 @@ test('lógica del contenido', () => {
   expect(all).not.toMatch(/bimensual|cada dos meses/i);
   expect(all.match(/bimestrales/g)?.length).toBeGreaterThanOrEqual(2);
 
-  // Sin cifras inventadas: solo "7" (pasos), "2026", "360" (marca TEC360) y el total de journeys (6).
-  const numbers = (all.replace(/B2[BC]/g, '').match(/\d+/g) ?? []).filter((n) => !['6', '7', '2026', '360'].includes(n));
+  // Sin cifras inventadas: solo "7" (pasos), "2026", "360" (marca TEC360) el total de journeys (6) y las 3 semanas mínimas por journey.
+  const numbers = (all.replace(/B2[BC]/g, '').match(/\d+/g) ?? []).filter((n) => !['3', '6', '7', '2026', '360'].includes(n));
   expect(numbers).toEqual([]);
 
   // Cada slide tiene notas del presentador.

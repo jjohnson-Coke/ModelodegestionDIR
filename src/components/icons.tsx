@@ -1,11 +1,13 @@
 import {
   CalendarDays,
   CalendarX,
+  Clock,
   ClipboardList,
   FileText,
   FolderOpen,
   Gauge,
   GraduationCap,
+  Handshake,
   Inbox,
   Lightbulb,
   ListChecks,
@@ -15,10 +17,13 @@ import {
   NotebookPen,
   PackageCheck,
   Presentation,
+  RefreshCw,
   Route,
   Scale,
   ShieldCheck,
+  UserRound,
   Users,
+  Wallet,
   Wrench,
   type LucideIcon,
 } from 'lucide-react';
@@ -47,6 +52,11 @@ const iconMap: Record<IconName, LucideIcon> = {
   wrench: Wrench,
   queue: ListOrdered,
   'calendar-x': CalendarX,
+  clock: Clock,
+  refresh: RefreshCw,
+  wallet: Wallet,
+  handshake: Handshake,
+  user: UserRound,
 };
 
 interface IconProps {

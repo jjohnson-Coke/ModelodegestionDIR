@@ -2,6 +2,7 @@ import type { SlideData } from '../data/slides';
 import { ClosingSlide } from './slides/ClosingSlide';
 import { CoverSlide } from './slides/CoverSlide';
 import { CycleSlide } from './slides/CycleSlide';
+import { FaqSlide } from './slides/FaqSlide';
 import { JourneysSlide } from './slides/JourneysSlide';
 import { MappingSlide } from './slides/MappingSlide';
 import { PillarDetailSlide } from './slides/PillarDetailSlide';
@@ -9,6 +10,7 @@ import { PillarsOverviewSlide } from './slides/PillarsOverviewSlide';
 import { ProblemSlide } from './slides/ProblemSlide';
 import { RoadmapSlide } from './slides/RoadmapSlide';
 import { StatementSlide } from './slides/StatementSlide';
+import { TestimonialsSlide } from './slides/TestimonialsSlide';
 
 export function SlideRenderer({ slide }: { slide: SlideData }) {
   switch (slide.kind) {
@@ -28,6 +30,10 @@ export function SlideRenderer({ slide }: { slide: SlideData }) {
       return <MappingSlide slide={slide} />;
     case 'cycle':
       return <CycleSlide slide={slide} />;
+    case 'testimonials':
+      return <TestimonialsSlide slide={slide} />;
+    case 'faq':
+      return <FaqSlide slide={slide} />;
     case 'roadmap':
       return <RoadmapSlide slide={slide} />;
     case 'closing':

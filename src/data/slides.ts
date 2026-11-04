@@ -25,7 +25,12 @@ export type IconName =
   | 'route'
   | 'wrench'
   | 'queue'
-  | 'calendar-x';
+  | 'calendar-x'
+  | 'clock'
+  | 'refresh'
+  | 'wallet'
+  | 'handshake'
+  | 'user';
 
 export type PillarId = 'madurez' | 'conciencia' | 'levantamiento' | 'control' | 'entrega';
 
@@ -222,6 +227,38 @@ export interface CycleSlideData extends BaseSlide {
   support: string;
 }
 
+export interface Testimonial {
+  id: string;
+  quote: string;
+  author: string;
+  role: string;
+  /** true mientras el testimonio real no se ha incorporado (se muestra como marcador). */
+  pending?: boolean;
+}
+
+export interface TestimonialsSlideData extends BaseSlide {
+  kind: 'testimonials';
+  kicker: string;
+  title: string;
+  testimonials: readonly Testimonial[];
+}
+
+export interface FaqItem {
+  id: string;
+  icon: IconName;
+  question: string;
+  answer: string;
+  /** Idea clave en una frase corta, destacada en la tarjeta. */
+  highlight: string;
+}
+
+export interface FaqSlideData extends BaseSlide {
+  kind: 'faq';
+  kicker: string;
+  title: string;
+  items: readonly FaqItem[];
+}
+
 export interface CadenceChip {
   label: string;
   detail: string;
@@ -250,6 +287,8 @@ export type SlideData =
   | PillarDetailSlideData
   | MappingSlideData
   | CycleSlideData
+  | TestimonialsSlideData
+  | FaqSlideData
   | RoadmapSlideData
   | ClosingSlideData;
 
@@ -275,7 +314,7 @@ const problemCards: readonly ProblemCard[] = [
     id: 'conocimiento',
     icon: 'graduation',
     title: 'Poco conocimiento',
-    description: 'Los equipos operativos tienen poco conocimiento de lo que implica diseñar una experiencia.',
+    description: 'Los equipos operativos aún están descubriendo todo lo que implica diseñar una experiencia.',
   },
 ];
 
@@ -301,7 +340,7 @@ export const slides: readonly SlideData[] = [
     title: 'Esto sucede al día de hoy',
     cards: problemCards,
     notes:
-      'Hoy las solicitudes llegan por correo, WhatsApp y reuniones sin estructura, el líder funcional es solicitante y aprobador a la vez, y los equipos operativos tienen poco conocimiento de lo que implica diseñar una experiencia.',
+      'Hoy las solicitudes llegan por correo, WhatsApp y reuniones sin estructura, el líder funcional es solicitante y aprobador a la vez, y los equipos operativos aún están descubriendo todo lo que implica diseñar una experiencia.',
   },
   {
     id: 'objetivo',
@@ -490,6 +529,77 @@ export const slides: readonly SlideData[] = [
     title: 'Un modelo de mejora continua',
     support: 'Lo que mide Madurez alimenta la siguiente vuelta del ciclo.',
     notes: 'Los pilares forman un ciclo: lo que mide Madurez alimenta la siguiente vuelta del ciclo.',
+  },
+  {
+    id: 'testimonios',
+    kind: 'testimonials',
+    kicker: 'LO QUE DICEN LOS EQUIPOS',
+    title: 'Testimonios',
+    // Marcadores: reemplazar `quote`, `author` y `role` con los testimonios reales y quitar `pending`.
+    testimonials: [
+      {
+        id: 'testimonio-a',
+        quote: 'Aquí irá el primer testimonio.',
+        author: 'Nombre',
+        role: 'Puesto · Área',
+        pending: true,
+      },
+      {
+        id: 'testimonio-b',
+        quote: 'Aquí irá el segundo testimonio.',
+        author: 'Nombre',
+        role: 'Puesto · Área',
+        pending: true,
+      },
+    ],
+    notes: 'Testimonios de equipos que ya trabajaron con el modelo (pendientes de incorporar).',
+  },
+  {
+    id: 'preguntas-frecuentes',
+    kind: 'faq',
+    kicker: 'PREGUNTAS FRECUENTES',
+    title: 'Lo que necesitas saber',
+    items: [
+      {
+        id: 'tiempo',
+        icon: 'clock',
+        question: '¿Cuánto tiempo toma diseñar un journey?',
+        answer: 'Diseñar un journey desde cero requiere un mínimo de 3 semanas.',
+        highlight: 'Mínimo 3 semanas',
+      },
+      {
+        id: 'participacion',
+        icon: 'users',
+        question: '¿Tengo que participar?',
+        answer: 'Sí. Tu participación y la de tu equipo son clave para desarrollar el journey.',
+        highlight: 'Participación clave',
+      },
+      {
+        id: 'despues',
+        icon: 'refresh',
+        question: '¿Qué sigue después de la entrega del journey?',
+        answer:
+          'Te integras formalmente a este modelo de gestión: iniciamos las reuniones de seguimiento bimestrales y definimos innovaciones y ajustes.',
+        highlight: 'Seguimiento bimestral',
+      },
+      {
+        id: 'presupuesto',
+        icon: 'wallet',
+        question: '¿Por qué el presupuesto es clave?',
+        answer: 'Contar con presupuesto permite al equipo de TD priorizar y desarrollar el journey con mayor eficiencia.',
+        highlight: 'Eficiencia en TD',
+      },
+      {
+        id: 'independiente',
+        icon: 'handshake',
+        question: '¿Puedo hacerlo por mi cuenta?',
+        answer:
+          'La metodología está diseñada para funcionar de forma independiente; aun así, te ofrecemos el acompañamiento del equipo de Experiencia.',
+        highlight: 'Acompañamiento',
+      },
+    ],
+    notes:
+      'Preguntas frecuentes: mínimo 3 semanas por journey, participación clave del equipo, seguimiento bimestral después de la entrega, presupuesto para que TD sea más eficiente y acompañamiento del equipo de Experiencia.',
   },
   {
     id: 'siguientes-pasos',
