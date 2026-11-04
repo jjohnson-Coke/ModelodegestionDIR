@@ -139,7 +139,8 @@ export type JourneyStatusTone = 'active' | 'queued' | 'unscheduled';
 
 export interface JourneyStatusGroup {
   id: string;
-  count: number;
+  /** Nombres de los journeys en este estado (la cantidad sale de aquí). */
+  journeys: readonly string[];
   label: string;
   tone: JourneyStatusTone;
   icon: IconName;
@@ -329,18 +330,18 @@ export const slides: readonly SlideData[] = [
     total: 6,
     titleAfter: 'journeys',
     groups: [
-      { id: 'desarrollo', count: 1, label: 'En priorización y desarrollo', tone: 'active', icon: 'wrench' },
-      { id: 'fila', count: 2, label: 'En la fila', tone: 'queued', icon: 'queue' },
+      { id: 'desarrollo', journeys: ['B2C'], label: 'En priorización y desarrollo', tone: 'active', icon: 'wrench' },
+      { id: 'fila', journeys: ['B2B', 'Freemium'], label: 'En la fila', tone: 'queued', icon: 'queue' },
       {
         id: 'sin-fecha',
-        count: 3,
+        journeys: ['Centro de idiomas', 'Educación para el desarrollo', 'Membresías'],
         label: 'Sin una fecha clara para priorizarlos',
         tone: 'unscheduled',
         icon: 'calendar-x',
       },
     ],
     notes:
-      'Al día de hoy hemos desarrollado 6 journeys: 1 está en priorización y desarrollo, 2 están en la fila y 3 no tienen una fecha clara para priorizarlos.',
+      'Al día de hoy hemos desarrollado 6 journeys: B2C está en priorización y desarrollo; B2B y Freemium están en la fila; Centro de idiomas, Educación para el desarrollo y Membresías no tienen una fecha clara para priorizarlos.',
   },
   {
     id: 'pilares',

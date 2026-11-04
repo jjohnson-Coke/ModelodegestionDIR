@@ -48,7 +48,7 @@ function CountUp({ to, delay }: { to: number; delay: number }) {
 
 export function JourneysSlide({ slide }: { slide: JourneysSlideData }) {
   // Una celda por journey, en el orden de los grupos.
-  const cells = slide.groups.flatMap((group) => Array.from({ length: group.count }, (_, i) => ({ group, key: `${group.id}-${i}` })));
+  const cells = slide.groups.flatMap((group) => group.journeys.map((name) => ({ group, name, key: `${group.id}-${name}` })));
   const cardsStart = CELLS_START + cells.length * CELL_STEP + 0.3;
   const title = `${slide.titleBefore} ${slide.total} ${slide.titleAfter}`;
 
@@ -69,16 +69,24 @@ export function JourneysSlide({ slide }: { slide: JourneysSlideData }) {
       <div className="my-auto pt-10 m:my-0 m:pt-8">
         {/* Un bloque por journey: la barra completa representa los 6. */}
         <ol className="grid gap-4 m:gap-1.5" style={{ gridTemplateColumns: `repeat(${cells.length}, minmax(0, 1fr))` }} aria-label={title}>
-          {cells.map(({ group, key }, i) => (
+          {cells.map(({ group, name, key }, i) => (
             <motion.li
               key={key}
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: CELLS_START + i * CELL_STEP, duration: 0.45, ease: EASE_OUT }}
-              className={`flex h-[120px] items-center justify-center rounded-card border-2 shadow-card m:h-14 m:rounded-xl ${toneStyles[group.tone].cell}`}
-              aria-label={group.label}
+              className="flex flex-col"
+              aria-label={`${name}: ${group.label}`}
             >
-              <Icon name="route" className={`h-12 w-12 m:h-6 m:w-6 ${toneStyles[group.tone].icon}`} />
+              {/* Nombre del journey arriba de su ícono (en móvil va dentro de la tarjeta). */}
+              <span className="flex h-[72px] items-end justify-center pb-3 text-center text-[23px] font-bold leading-tight text-brand-ink m:hidden">
+                {name}
+              </span>
+              <span
+                className={`flex h-[120px] items-center justify-center rounded-card border-2 shadow-card m:h-14 m:rounded-xl ${toneStyles[group.tone].cell}`}
+              >
+                <Icon name="route" className={`h-12 w-12 m:h-6 m:w-6 ${toneStyles[group.tone].icon}`} />
+              </span>
             </motion.li>
           ))}
         </ol>
@@ -92,15 +100,18 @@ export function JourneysSlide({ slide }: { slide: JourneysSlideData }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: cardsStart + g * 0.3, duration: 0.55, ease: EASE_OUT }}
               className={`flex flex-col gap-4 rounded-card border-2 p-7 shadow-card m:!col-span-1 m:flex-row m:items-center m:gap-3 m:p-4 ${toneStyles[group.tone].card}`}
-              style={{ gridColumn: `span ${group.count} / span ${group.count}` }}
+              style={{ gridColumn: `span ${group.journeys.length} / span ${group.journeys.length}` }}
             >
               <div className="flex items-center gap-4 m:gap-3">
-                <span className="text-[72px] font-extrabold leading-none text-brand-ink m:w-10 m:text-[34px]">{group.count}</span>
+                <span className="text-[72px] font-extrabold leading-none text-brand-ink m:w-10 m:text-[34px]">{group.journeys.length}</span>
                 <span className={`flex h-14 w-14 items-center justify-center rounded-2xl m:h-9 m:w-9 m:rounded-xl ${toneStyles[group.tone].badge}`}>
                   <Icon name={group.icon} className="h-7 w-7 m:h-5 m:w-5" />
                 </span>
               </div>
-              <p className="text-[26px] font-bold leading-snug text-brand-ink m:text-base">{group.label}</p>
+              <div>
+                <p className="text-[26px] font-bold leading-snug text-brand-ink m:text-base">{group.label}</p>
+                <p className="hidden text-sm font-medium text-brand-ink-2 m:mt-0.5 m:block">{group.journeys.join(' · ')}</p>
+              </div>
             </motion.li>
           ))}
         </ul>
