@@ -313,7 +313,7 @@ const problemCards: readonly ProblemCard[] = [
   {
     id: 'conocimiento',
     icon: 'graduation',
-    title: 'Poco conocimiento',
+    title: 'Etapa de descubrimiento',
     description: 'Los equipos operativos aún están descubriendo todo lo que implica diseñar una experiencia.',
   },
 ];
