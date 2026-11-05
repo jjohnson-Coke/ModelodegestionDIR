@@ -33,6 +33,7 @@ const poses: readonly ArcPose[] = [
   { x: 1440, y: -600, rotate: 395, scale: 1, opacity: 0.5 }, // Testimonios
   { x: 1830, y: 400, rotate: 410, scale: 1, opacity: 0.5 }, // Preguntas frecuentes
   { x: 1830, y: 160, rotate: 420, scale: 1, opacity: 0.5 }, // Siguientes pasos
+  { x: -700, y: -650, rotate: 440, scale: 1, opacity: 0.55 }, // Journeys FC
   { x: 510, y: 90, rotate: 450, scale: 1, opacity: 0 }, // Cierre (el arco propio de la slide toma el relevo)
 ];
 

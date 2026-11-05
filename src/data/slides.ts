@@ -299,6 +299,15 @@ export interface RoadmapSlideData extends BaseSlide {
   repository: { title: string; label: string };
 }
 
+export interface TeamSlideData extends BaseSlide {
+  kind: 'team';
+  kicker: string;
+  /** Se lee: `${lead}` + `${name} ${suffix}` (el sufijo va en cian). */
+  lead: string;
+  name: string;
+  suffix: string;
+}
+
 export interface ClosingSlideData extends BaseSlide {
   kind: 'closing';
   caption: string;
@@ -317,6 +326,7 @@ export type SlideData =
   | TestimonialsSlideData
   | FaqSlideData
   | RoadmapSlideData
+  | TeamSlideData
   | ClosingSlideData;
 
 /* ------------------------------------------------------------------ */
@@ -681,6 +691,15 @@ export const slides: readonly SlideData[] = [
     repository: { title: 'Repositorio del modelo', label: 'SharePoint · Experiencia de aprendedores' },
     notes:
       'Siguientes pasos: desarrollo de herramientas, toque de base con el equipo DEAP, socialización con equipos operativos y envío de encuesta índice de madurez de CX.',
+  },
+  {
+    id: 'journeys-fc',
+    kind: 'team',
+    kicker: 'NUESTRO EQUIPO',
+    lead: 'Te presento a',
+    name: 'Journeys',
+    suffix: 'FC',
+    notes: 'Te presento a Journeys FC, el equipo que acompaña el diseño de journeys y experiencias.',
   },
   {
     id: 'cierre',

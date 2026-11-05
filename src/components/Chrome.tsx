@@ -49,10 +49,10 @@ export function Chrome({ index, total, theme, onSelect, fullscreen }: ChromeProp
               onClick={blurAfter(() => onSelect(i))}
               aria-label={`Ir a la diapositiva ${i + 1}`}
               aria-current={active ? 'step' : undefined}
-              className="group relative flex h-8 w-6 items-center justify-center m:h-7 m:w-4"
+              className="group relative flex h-8 w-6 items-center justify-center m:h-7 m:w-3.5"
             >
               <span
-                className={`block h-[10px] w-[10px] rounded-full transition-opacity group-hover:opacity-100 m:h-2 m:w-2 ${
+                className={`block h-[10px] w-[10px] rounded-full transition-opacity group-hover:opacity-100 m:h-1.5 m:w-1.5 ${
                   light ? 'bg-brand-ink' : 'bg-white'
                 } ${active ? 'opacity-0' : 'opacity-30'}`}
               />

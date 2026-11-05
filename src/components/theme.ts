@@ -7,6 +7,7 @@ export function themeOf(slide: SlideData): SlideTheme {
     case 'cover':
       return 'cover';
     case 'statement':
+    case 'team':
       return 'dark';
     case 'closing':
       return 'black';

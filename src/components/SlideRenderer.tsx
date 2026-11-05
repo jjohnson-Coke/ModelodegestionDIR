@@ -11,6 +11,7 @@ import { ProcessSlide } from './slides/ProcessSlide';
 import { ProblemSlide } from './slides/ProblemSlide';
 import { RoadmapSlide } from './slides/RoadmapSlide';
 import { StatementSlide } from './slides/StatementSlide';
+import { TeamSlide } from './slides/TeamSlide';
 import { TestimonialsSlide } from './slides/TestimonialsSlide';
 
 export function SlideRenderer({ slide }: { slide: SlideData }) {
@@ -39,6 +40,8 @@ export function SlideRenderer({ slide }: { slide: SlideData }) {
       return <FaqSlide slide={slide} />;
     case 'roadmap':
       return <RoadmapSlide slide={slide} />;
+    case 'team':
+      return <TeamSlide slide={slide} />;
     case 'closing':
       return <ClosingSlide slide={slide} />;
   }

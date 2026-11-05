@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { pillars, slides } from '../src/data/slides';
 
 test('lógica del contenido', () => {
-  expect(slides).toHaveLength(17);
+  expect(slides).toHaveLength(18);
   const order = pillars.map((p) => p.id);
   expect(order).toEqual(['madurez', 'conciencia', 'levantamiento', 'control', 'entrega']);
 

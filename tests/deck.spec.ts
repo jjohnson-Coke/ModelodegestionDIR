@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
-const TOTAL = 17;
+const TOTAL = 18;
 const LOCK_WAIT = 420; // > bloqueo de navegación (350 ms)
 const REVEAL_WAIT = 5500; // tiempo para que terminen los revelados internos
 
