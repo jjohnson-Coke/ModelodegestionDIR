@@ -9,6 +9,7 @@ const STEP = 0.32;
 
 export function PillarsOverviewSlide({ slide }: { slide: PillarsOverviewSlideData }) {
   const lineDuration = STEP * (pillars.length - 1) + 0.2;
+  const DELIVERABLES_START = START + pillars.length * STEP + 0.3;
   return (
     <SlideFrame kicker={slide.kicker} title={slide.title}>
       <div className="relative flex flex-1 flex-col justify-center">
@@ -39,7 +40,7 @@ export function PillarsOverviewSlide({ slide }: { slide: PillarsOverviewSlideDat
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: START + i * STEP, duration: 0.55, ease: EASE_OUT }}
-              className="relative flex flex-col items-center text-center m:flex-row m:items-start m:gap-4 m:text-left"
+              className="relative flex flex-col items-center text-center m:flex-row m:flex-wrap m:items-start m:gap-x-4 m:gap-y-0 m:text-left"
             >
               <span className="relative z-10 flex h-[112px] w-[112px] items-center justify-center rounded-full border-4 border-brand-cyan bg-white shadow-card m:h-14 m:w-14 m:border-2">
                 <Icon name={pillar.icon} className="h-12 w-12 text-brand-cyan-dark m:h-6 m:w-6" />
@@ -51,6 +52,16 @@ export function PillarsOverviewSlide({ slide }: { slide: PillarsOverviewSlideDat
                 <h3 className="text-[34px] font-extrabold text-brand-ink m:text-lg">{pillar.name}</h3>
                 <p className="mt-3 text-[23px] leading-[1.45] text-brand-ink-2 m:mt-1 m:text-sm">{pillar.purpose}</p>
               </div>
+              {/* Entregable de la etapa, debajo del recuadro. */}
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: DELIVERABLES_START + i * 0.12, duration: 0.45, ease: EASE_OUT }}
+                className="mt-4 flex w-full flex-col items-center rounded-2xl border-2 border-dashed border-brand-cyan-dark/50 bg-white px-4 py-3 m:ml-[72px] m:mt-2 m:basis-full m:items-start m:px-3 m:py-2"
+              >
+                <span className="text-[14px] font-bold uppercase tracking-[0.18em] text-brand-cyan-ink m:text-[10px]">Entregable</span>
+                <span className="mt-1 text-[20px] font-bold leading-snug text-brand-ink m:text-sm">{pillar.deliverable}</span>
+              </motion.div>
             </motion.li>
           ))}
         </ol>

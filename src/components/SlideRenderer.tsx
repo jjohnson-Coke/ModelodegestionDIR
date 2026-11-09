@@ -5,6 +5,7 @@ import { CycleSlide } from './slides/CycleSlide';
 import { FaqSlide } from './slides/FaqSlide';
 import { JourneysSlide } from './slides/JourneysSlide';
 import { MappingSlide } from './slides/MappingSlide';
+import { MaturityIndexSlide } from './slides/MaturityIndexSlide';
 import { PillarDetailSlide } from './slides/PillarDetailSlide';
 import { PillarsOverviewSlide } from './slides/PillarsOverviewSlide';
 import { ProcessSlide } from './slides/ProcessSlide';
@@ -36,6 +37,8 @@ export function SlideRenderer({ slide }: { slide: SlideData }) {
       return <CycleSlide slide={slide} />;
     case 'testimonials':
       return <TestimonialsSlide slide={slide} />;
+    case 'maturity-index':
+      return <MaturityIndexSlide slide={slide} />;
     case 'faq':
       return <FaqSlide slide={slide} />;
     case 'roadmap':

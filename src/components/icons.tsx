@@ -2,6 +2,7 @@ import {
   CalendarDays,
   CalendarX,
   Cpu,
+  Eye,
   Clock,
   ClipboardList,
   FileText,
@@ -24,11 +25,15 @@ import {
   Route,
   Scale,
   ShieldCheck,
+  Sparkles,
+  Target,
+  TrendingUp,
   UserRound,
   Users,
   Wallet,
   Workflow,
   Wrench,
+  Zap,
   type LucideIcon,
 } from 'lucide-react';
 import type { IconName } from '../data/slides';
@@ -65,6 +70,11 @@ const iconMap: Record<IconName, LucideIcon> = {
   workflow: Workflow,
   layers: Layers,
   cpu: Cpu,
+  target: Target,
+  trending: TrendingUp,
+  zap: Zap,
+  eye: Eye,
+  sparkles: Sparkles,
 };
 
 interface IconProps {

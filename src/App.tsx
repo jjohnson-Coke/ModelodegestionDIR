@@ -116,7 +116,7 @@ export default function App() {
                     : { width: STAGE_WIDTH, height: STAGE_HEIGHT }
                 }
               >
-                <ThreadArc index={deck.index} theme={theme} />
+                <ThreadArc slideId={slide.id} theme={theme} />
               </div>
             </div>
 

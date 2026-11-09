@@ -2,14 +2,14 @@ import { expect, test } from '@playwright/test';
 import { pillars, slides } from '../src/data/slides';
 
 test('lógica del contenido', () => {
-  expect(slides).toHaveLength(18);
+  expect(slides).toHaveLength(15);
   const order = pillars.map((p) => p.id);
   expect(order).toEqual(['madurez', 'conciencia', 'levantamiento', 'control', 'entrega']);
 
   // Slides 5–9 siguen el mismo orden de pilares.
   const detail = slides.filter((s) => s.kind === 'pillar-detail').map((s) => (s.kind === 'pillar-detail' ? s.pillarId : ''));
   expect(detail).toEqual(order);
-  expect(slides.slice(6, 11).every((s) => s.kind === 'pillar-detail')).toBe(true);
+  expect(slides.slice(3, 8).every((s) => s.kind === 'pillar-detail')).toBe(true);
 
   // Estado de journeys: los grupos suman el total.
   for (const s of slides) {
@@ -32,8 +32,8 @@ test('lógica del contenido', () => {
   expect(all).not.toMatch(/bimensual|cada dos meses/i);
   expect(all.match(/bimestrales/g)?.length).toBeGreaterThanOrEqual(2);
 
-  // Sin cifras inventadas: solo "7" (pasos), "2026", "360" (marca TEC360) el total de journeys (6) y las 3 semanas mínimas por journey.
-  const numbers = (all.replace(/B2[BC]/g, '').match(/\d+/g) ?? []).filter((n) => !['3', '6', '7', '2026', '360'].includes(n));
+  // Sin cifras inventadas: solo "7" (pasos), "2026", "360" (marca TEC360) el total de journeys (6) las 3 semanas mínimas por journey y el modelo de madurez de Qualtrics (6 competencias, 5 etapas).
+  const numbers = (all.replace(/B2[BC]/g, '').match(/\d+/g) ?? []).filter((n) => !['3', '5', '6', '7', '2026', '360'].includes(n));
   expect(numbers).toEqual([]);
 
   // Cada slide tiene notas del presentador.

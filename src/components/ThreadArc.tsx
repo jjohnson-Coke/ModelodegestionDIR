@@ -15,27 +15,26 @@ const HIDDEN: ArcPose = { x: 0, y: 0, rotate: 0, scale: 1, opacity: 0 };
 
 const SIZE = ARC_SIZE;
 
-/** Posición del arco (coordenadas del lienzo 1920×1080) por slide: hilo conductor visual. */
-const poses: readonly ArcPose[] = [
-  { ...COVER_ARC_POSITION, rotate: 0, scale: 1, opacity: 0.95 }, // Portada
-  { x: 1430, y: -560, rotate: 40, scale: 1, opacity: 0.55 }, // AS IS
-  { x: 1810, y: 200, rotate: 100, scale: 1, opacity: 0.6 }, // Objetivo
-  { x: 1440, y: -600, rotate: 115, scale: 1, opacity: 0.5 }, // Journeys al día de hoy
-  { x: 1830, y: 380, rotate: 125, scale: 1, opacity: 0.5 }, // Proceso de habilitación
-  { x: 1450, y: -620, rotate: 130, scale: 1, opacity: 0.5 }, // Pilares
-  { x: 1830, y: 90, rotate: 160, scale: 1, opacity: 0.5 }, // Madurez
-  { x: 1830, y: 90, rotate: 190, scale: 1, opacity: 0.5 }, // Conciencia
-  { x: 1830, y: 90, rotate: 220, scale: 1, opacity: 0.5 }, // Levantamiento
-  { x: 1830, y: 90, rotate: 250, scale: 1, opacity: 0.5 }, // Control
-  { x: 1830, y: 90, rotate: 280, scale: 1, opacity: 0.5 }, // Entrega
-  { x: 1830, y: 260, rotate: 320, scale: 1, opacity: 0.5 }, // Mapeo
-  { x: -760, y: 150, rotate: 380, scale: 1, opacity: 0.45 }, // Ciclo
-  { x: 1440, y: -600, rotate: 395, scale: 1, opacity: 0.5 }, // Testimonios
-  { x: 1830, y: 400, rotate: 410, scale: 1, opacity: 0.5 }, // Preguntas frecuentes
-  { x: 1830, y: 160, rotate: 420, scale: 1, opacity: 0.5 }, // Siguientes pasos
-  { x: -700, y: -650, rotate: 440, scale: 1, opacity: 0.55 }, // Journeys FC
-  { x: 510, y: 90, rotate: 450, scale: 1, opacity: 0 }, // Cierre (el arco propio de la slide toma el relevo)
-];
+/** Posición del arco (coordenadas del lienzo 1920×1080) por id de slide: hilo conductor visual. */
+const poses: Readonly<Record<string, ArcPose>> = {
+  portada: { ...COVER_ARC_POSITION, rotate: 0, scale: 1, opacity: 0.95 },
+  'as-is': { x: 1430, y: -560, rotate: 40, scale: 1, opacity: 0.55 },
+  objetivo: { x: 1810, y: 200, rotate: 100, scale: 1, opacity: 0.6 },
+  'journeys-hoy': { x: 1440, y: -600, rotate: 115, scale: 1, opacity: 0.5 },
+  pilares: { x: 1450, y: -620, rotate: 130, scale: 1, opacity: 0.5 },
+  madurez: { x: 1830, y: 90, rotate: 160, scale: 1, opacity: 0.5 },
+  conciencia: { x: 1830, y: 90, rotate: 190, scale: 1, opacity: 0.5 },
+  levantamiento: { x: 1830, y: 90, rotate: 220, scale: 1, opacity: 0.5 },
+  control: { x: 1830, y: 90, rotate: 250, scale: 1, opacity: 0.5 },
+  entrega: { x: 1830, y: 90, rotate: 280, scale: 1, opacity: 0.5 },
+  ciclo: { x: -760, y: 150, rotate: 380, scale: 1, opacity: 0.45 },
+  testimonios: { x: 1440, y: -600, rotate: 395, scale: 1, opacity: 0.5 },
+  'indice-madurez': { x: 1830, y: 420, rotate: 400, scale: 1, opacity: 0.5 },
+  'preguntas-frecuentes': { x: 1830, y: 400, rotate: 410, scale: 1, opacity: 0.5 },
+  'proceso-habilitacion': { x: 1830, y: 380, rotate: 415, scale: 1, opacity: 0.5 },
+  'siguientes-pasos': { x: 1830, y: 160, rotate: 420, scale: 1, opacity: 0.5 },
+  cierre: { x: 510, y: 90, rotate: 450, scale: 1, opacity: 0 }, // el arco propio de la slide toma el relevo
+};
 
 const R = 410;
 // Arco abierto de ~290°, como el anillo del deck original.
@@ -43,8 +42,8 @@ const ARC = `M ${SIZE / 2 + R * Math.cos(-0.35 * Math.PI)} ${SIZE / 2 + R * Math
   SIZE / 2 + R * Math.cos(-0.65 * Math.PI)
 } ${SIZE / 2 + R * Math.sin(-0.65 * Math.PI)}`;
 
-export function ThreadArc({ index, theme }: { index: number; theme: SlideTheme }) {
-  const pose = poses[Math.min(index, poses.length - 1)] ?? HIDDEN;
+export function ThreadArc({ slideId, theme }: { slideId: string; theme: SlideTheme }) {
+  const pose = poses[slideId] ?? HIDDEN;
   const onDark = theme !== 'light';
   return (
     <motion.div
@@ -57,7 +56,7 @@ export function ThreadArc({ index, theme }: { index: number; theme: SlideTheme }
     >
       <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="overflow-visible">
         <motion.path
-          key={index}
+          key={slideId}
           d={ARC}
           fill="none"
           stroke={onDark ? '#1EB8E6' : '#5FD0E0'}

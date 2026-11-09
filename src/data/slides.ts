@@ -34,7 +34,12 @@ export type IconName =
   | 'pen'
   | 'workflow'
   | 'layers'
-  | 'cpu';
+  | 'cpu'
+  | 'target'
+  | 'trending'
+  | 'zap'
+  | 'eye'
+  | 'sparkles';
 
 export type PillarId = 'madurez' | 'conciencia' | 'levantamiento' | 'control' | 'entrega';
 
@@ -45,6 +50,8 @@ export interface Pillar {
   /** Verbo clave mostrado en el ciclo (slide 11). */
   verb: string;
   icon: IconName;
+  /** Entregable de la etapa (se muestra debajo de cada pilar en la vista general). */
+  deliverable: string;
 }
 
 /** Orden canónico de los pilares (se usa en todas las slides). */
@@ -55,6 +62,7 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Asegurar que el avance es real y aceptado por el equipo.',
     verb: 'Medir',
     icon: 'gauge',
+    deliverable: 'Respuestas del índice de madurez de CX',
   },
   {
     id: 'conciencia',
@@ -62,6 +70,7 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Conocer nuestro proceso y lo que es la experiencia.',
     verb: 'Entender',
     icon: 'lightbulb',
+    deliverable: 'Documentos de familiarización de experiencia',
   },
   {
     id: 'levantamiento',
@@ -69,6 +78,7 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Facilitar y homologar las solicitudes de journeys y experiencias.',
     verb: 'Solicitar',
     icon: 'clipboard',
+    deliverable: 'Punto único de entrada',
   },
   {
     id: 'control',
@@ -76,6 +86,7 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Institucionalizar las responsabilidades y la mejora continua.',
     verb: 'Gobernar',
     icon: 'shield',
+    deliverable: 'Reuniones bimestrales',
   },
   {
     id: 'entrega',
@@ -83,6 +94,7 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Asegurar la priorización e implementación de los journeys y experiencias.',
     verb: 'Priorizar e implementar',
     icon: 'package',
+    deliverable: 'Fechas de priorización con TD',
   },
 ];
 
@@ -105,6 +117,8 @@ interface BaseSlide {
   id: string;
   /** Notas del presentador (tecla N). */
   notes: string;
+  /** true para ocultar la slide sin borrar su contenido. */
+  hidden?: boolean;
 }
 
 export interface CoverSlideData extends BaseSlide {
@@ -285,6 +299,29 @@ export interface FaqSlideData extends BaseSlide {
   items: readonly FaqItem[];
 }
 
+export interface MaturityCompetency {
+  id: string;
+  icon: IconName;
+  name: string;
+  /** Nombre original del XM Institute. */
+  original: string;
+  description: string;
+}
+
+export interface MaturityIndexSlideData extends BaseSlide {
+  kind: 'maturity-index';
+  kicker: string;
+  title: string;
+  lead: string;
+  competenciesTitle: string;
+  competencies: readonly MaturityCompetency[];
+  stagesTitle: string;
+  stages: readonly string[];
+  usageTitle: string;
+  usage: string;
+  source: string;
+}
+
 export interface CadenceChip {
   label: string;
   detail: string;
@@ -324,6 +361,7 @@ export type SlideData =
   | MappingSlideData
   | CycleSlideData
   | TestimonialsSlideData
+  | MaturityIndexSlideData
   | FaqSlideData
   | RoadmapSlideData
   | TeamSlideData
@@ -361,7 +399,8 @@ export function getProblem(id: ProblemId): ProblemCard {
   return card;
 }
 
-export const slides: readonly SlideData[] = [
+/** Todas las slides, incluidas las ocultas (`hidden: true`). */
+export const allSlides: readonly SlideData[] = [
   {
     id: 'portada',
     kind: 'cover',
@@ -372,6 +411,7 @@ export const slides: readonly SlideData[] = [
   },
   {
     id: 'as-is',
+    hidden: true,
     kind: 'problem',
     kicker: 'ESTE ES NUESTRO AS IS',
     title: 'Esto sucede al día de hoy',
@@ -400,6 +440,7 @@ export const slides: readonly SlideData[] = [
   },
   {
     id: 'journeys-hoy',
+    hidden: true,
     kind: 'journeys',
     kicker: 'LO QUE HEMOS TRABAJADO AL DÍA DE HOY',
     titleBefore: 'Hemos desarrollado',
@@ -418,38 +459,6 @@ export const slides: readonly SlideData[] = [
     ],
     notes:
       'Al día de hoy hemos desarrollado 6 journeys: B2C está en priorización y desarrollo; B2B y Freemium están en la fila; Centro de idiomas, Educación para el desarrollo y Membresías no tienen una fecha clara para priorizarlos.',
-  },
-  {
-    id: 'proceso-habilitacion',
-    kind: 'process',
-    kicker: 'PROCESO DE HABILITACIÓN DE UN JOURNEY',
-    title: 'Del diseño a la habilitación tecnológica',
-    ownerLabel: 'Responsable',
-    steps: [
-      { id: 'diseno', icon: 'pen', title: 'Diseño', owner: 'Experiencia', ledByExperience: true },
-      { id: 'procesos', icon: 'workflow', title: 'Procesos', owner: 'Equipo de Procesos' },
-      {
-        id: 'epicas',
-        icon: 'layers',
-        title: 'Épicas, HU’s y priorización',
-        owner: 'Gerentes de producto',
-        support: 'Experiencia',
-      },
-      {
-        id: 'habilitacion',
-        icon: 'cpu',
-        title: 'Habilitación tecnológica y factibilidad',
-        owner: 'Transformación digital',
-      },
-    ],
-    legend: {
-      experience: 'Lidera Experiencia',
-      others: 'Lidera otra área',
-      support: 'Experiencia acompaña',
-    },
-    note: 'Experiencia diseña el journey y acompaña su priorización hasta que pasa a habilitación tecnológica.',
-    notes:
-      'Un journey se habilita en cuatro pasos: Diseño (Experiencia), Procesos (Equipo de Procesos), Épicas, HU’s y priorización (Gerentes de producto, con acompañamiento de Experiencia) y Habilitación tecnológica y factibilidad (Transformación digital).',
   },
   {
     id: 'pilares',
@@ -571,27 +580,6 @@ export const slides: readonly SlideData[] = [
       'Entrega: reporte a TD para priorización, reporte a líderes de journey y reporte a gerentes de producto, con la calendarización de entregas a TD.',
   },
   {
-    id: 'mapeo',
-    kind: 'mapping',
-    kicker: 'DEL AS IS AL TO BE',
-    title: 'Cada problema tiene un pilar que lo resuelve',
-    rows: [
-      { problemId: 'homologacion', targets: [{ pillarId: 'levantamiento' }] },
-      {
-        problemId: 'aprobador',
-        targets: [
-          { pillarId: 'entrega', detail: 'priorización con TD' },
-          { pillarId: 'control', detail: 'matriz de roles y funciones' },
-        ],
-      },
-      { problemId: 'conocimiento', targets: [{ pillarId: 'conciencia' }] },
-    ],
-    measuringPillar: 'madurez',
-    note: 'Madurez mide que el cambio sea real y aceptado por el equipo.',
-    notes:
-      'Cada problema del AS IS tiene un pilar que lo resuelve; Madurez mide que el cambio sea real y aceptado por el equipo.',
-  },
-  {
     id: 'ciclo',
     kind: 'cycle',
     kicker: 'CÓMO SE CONECTAN LOS PILARES',
@@ -622,6 +610,65 @@ export const slides: readonly SlideData[] = [
     ],
     notes:
       'Natalia (Membresías) destaca cómo el journey les ayudó a identificar pasos, áreas a involucrar y puntos clave; Bertha (Vivencia B2C) valora un proceso guiado, abierto a la creatividad y centrado en el aprendedor.',
+  },
+  {
+    id: 'indice-madurez',
+    kind: 'maturity-index',
+    kicker: 'ÍNDICE DE MADUREZ DE CX · QUALTRICS',
+    title: '¿Qué es el índice de madurez de CX?',
+    lead: 'Una autoevaluación del XM Institute de Qualtrics que mide qué tan preparada está la organización para gestionar la experiencia de sus clientes y en qué etapa de madurez se encuentra.',
+    competenciesTitle: 'Evalúa 6 competencias',
+    competencies: [
+      {
+        id: 'lead',
+        icon: 'target',
+        name: 'Liderar',
+        original: 'Lead',
+        description: 'Definir y sostener la visión, la hoja de ruta y la gobernanza de experiencia.',
+      },
+      {
+        id: 'realize',
+        icon: 'trending',
+        name: 'Generar valor',
+        original: 'Realize',
+        description: 'Asegurar que la experiencia logre objetivos de negocio claros y medibles.',
+      },
+      {
+        id: 'activate',
+        icon: 'zap',
+        name: 'Activar',
+        original: 'Activate',
+        description: 'Dar a los equipos las habilidades, el apoyo y la motivación para lograrlo.',
+      },
+      {
+        id: 'enlighten',
+        icon: 'eye',
+        name: 'Dar visibilidad',
+        original: 'Enlighten',
+        description: 'Generar y distribuir información accionable en toda la organización.',
+      },
+      {
+        id: 'respond',
+        icon: 'refresh',
+        name: 'Responder',
+        original: 'Respond',
+        description: 'Priorizar e implementar mejoras a partir de esa información.',
+      },
+      {
+        id: 'disrupt',
+        icon: 'sparkles',
+        name: 'Innovar',
+        original: 'Disrupt',
+        description: 'Diseñar experiencias que diferencien a la organización.',
+      },
+    ],
+    stagesTitle: 'Ubica a la organización en 5 etapas',
+    stages: ['Investigar', 'Iniciar', 'Movilizar', 'Escalar', 'Integrar'],
+    usageTitle: 'Cómo lo usamos',
+    usage: 'Se responde en noviembre y mayo con un formulario en Qualtrics; el resultado alimenta la siguiente vuelta del modelo.',
+    source: 'Fuente: modelo de madurez de CX del XM Institute (Qualtrics).',
+    notes:
+      'El índice de madurez de CX es una autoevaluación del XM Institute de Qualtrics: mide 6 competencias (liderar, generar valor, activar, dar visibilidad, responder e innovar) y ubica a la organización en 5 etapas, de Investigar a Integrar. Lo aplicamos en noviembre y mayo.',
   },
   {
     id: 'preguntas-frecuentes',
@@ -671,13 +718,45 @@ export const slides: readonly SlideData[] = [
       'Preguntas frecuentes: mínimo 3 semanas por journey, participación clave del equipo, seguimiento bimestral después de la entrega, presupuesto para que TD sea más eficiente y acompañamiento del equipo de Experiencia.',
   },
   {
+    id: 'proceso-habilitacion',
+    kind: 'process',
+    kicker: 'PROCESO DE HABILITACIÓN DE UN JOURNEY',
+    title: 'Del diseño a la habilitación tecnológica',
+    ownerLabel: 'Responsable',
+    steps: [
+      { id: 'diseno', icon: 'pen', title: 'Diseño', owner: 'Experiencia', ledByExperience: true },
+      { id: 'procesos', icon: 'workflow', title: 'Procesos', owner: 'Equipo de Procesos' },
+      {
+        id: 'epicas',
+        icon: 'layers',
+        title: 'Épicas, HU’s y priorización',
+        owner: 'Gerentes de producto',
+        support: 'Experiencia',
+      },
+      {
+        id: 'habilitacion',
+        icon: 'cpu',
+        title: 'Habilitación tecnológica y factibilidad',
+        owner: 'Transformación digital',
+      },
+    ],
+    legend: {
+      experience: 'Lidera Experiencia',
+      others: 'Lidera otra área',
+      support: 'Experiencia acompaña',
+    },
+    note: 'Experiencia diseña el journey y acompaña su priorización hasta que pasa a habilitación tecnológica.',
+    notes:
+      'Un journey se habilita en cuatro pasos: Diseño (Experiencia), Procesos (Equipo de Procesos), Épicas, HU’s y priorización (Gerentes de producto, con acompañamiento de Experiencia) y Habilitación tecnológica y factibilidad (Transformación digital).',
+  },
+  {
     id: 'siguientes-pasos',
     kind: 'roadmap',
     kicker: 'CÓMO LO HACEMOS REALIDAD',
     title: 'Siguientes pasos',
     steps: [
-      'Desarrollo de herramientas',
-      'Toque de base con el equipo DEAP',
+      'Desarrollo de encuesta índice de madurez de CX',
+      'Presentación con equipo directivo',
       'Socialización con equipos operativos',
       'Envío de encuesta índice de madurez de CX',
     ],
@@ -690,16 +769,7 @@ export const slides: readonly SlideData[] = [
     },
     repository: { title: 'Repositorio del modelo', label: 'SharePoint · Experiencia de aprendedores' },
     notes:
-      'Siguientes pasos: desarrollo de herramientas, toque de base con el equipo DEAP, socialización con equipos operativos y envío de encuesta índice de madurez de CX.',
-  },
-  {
-    id: 'journeys-fc',
-    kind: 'team',
-    kicker: 'NUESTRO EQUIPO',
-    lead: 'Te presento a',
-    name: 'Journeys',
-    suffix: 'FC',
-    notes: 'Te presento a Journeys FC, el equipo que acompaña el diseño de journeys y experiencias.',
+      'Siguientes pasos: desarrollo de encuesta índice de madurez de CX, presentación con equipo directivo, socialización con equipos operativos y envío de encuesta índice de madurez de CX.',
   },
   {
     id: 'cierre',
@@ -708,3 +778,6 @@ export const slides: readonly SlideData[] = [
     notes: 'Cierre: Modelo de gestión de experiencia de TEC360.',
   },
 ];
+
+/** Slides visibles en la presentación, en orden. */
+export const slides: readonly SlideData[] = allSlides.filter((slide) => !slide.hidden);
