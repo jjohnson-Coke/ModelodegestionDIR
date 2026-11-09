@@ -17,6 +17,29 @@ npm run typecheck  # tsc --noEmit
 npm run test:e2e   # pruebas Playwright (compila y prueba el build de producción)
 ```
 
+## Deploy en Cloudflare Pages
+
+1. En Cloudflare: **Workers & Pages → Create → Pages → Connect to Git** y elige `jjohnson-Coke/ModelodegestionDIR`.
+2. Configuración del build:
+
+   | Campo | Valor |
+   | --- | --- |
+   | Production branch | `main` |
+   | Framework preset | `Vite` (o `None`) |
+   | Build command | `npm run build` |
+   | Build output directory | `dist` |
+   | Root directory | *(vacío)* |
+   | Variable de entorno | `NODE_VERSION` = `20` |
+
+3. **Save and Deploy.** Cada `push` a `main` publica una versión nueva.
+
+Notas:
+- La versión de Node también queda fijada en `.node-version` (20).
+- `public/_headers` define la caché: los archivos de `/assets` (con hash) se guardan un año y la página
+  principal siempre se revalida, así cada deploy se ve de inmediato.
+- No hace falta `_redirects`: la navegación usa `#/n`, por lo que `https://<proyecto>.pages.dev/#/5` abre la slide 5.
+- `npm run build` también revisa los tipos; si un cambio rompe TypeScript, el deploy falla en lugar de publicar algo roto.
+
 ## Atajos
 
 | Acción | Teclas / gesto |
