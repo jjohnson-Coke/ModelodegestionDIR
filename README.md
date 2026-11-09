@@ -17,7 +17,20 @@ npm run typecheck  # tsc --noEmit
 npm run test:e2e   # pruebas Playwright (compila y prueba el build de producción)
 ```
 
-## Deploy en Cloudflare Pages
+## Deploy en Cloudflare
+
+El proyecto `modelodegestiondir` está creado como **Worker** con conexión a GitHub (Workers Builds):
+
+| Campo | Valor |
+| --- | --- |
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Root directory | `/` |
+
+`wrangler.jsonc` le indica a Wrangler que publique la carpeta `dist/` como sitio estático. Cada `push` a `main`
+compila y publica solo.
+
+### Alternativa: Cloudflare Pages
 
 1. En Cloudflare: **Workers & Pages → Create → Pages → Connect to Git** y elige `jjohnson-Coke/ModelodegestionDIR`.
 2. Configuración del build:
