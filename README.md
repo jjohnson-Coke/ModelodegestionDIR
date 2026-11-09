@@ -1,6 +1,8 @@
-# Modelo de gestión de experiencia · TEC360
+# Modelo de gestión de experiencia · TEC360 · Versión DIRECTIVOS
 
-Presentación web (SPA) del Modelo de gestión de experiencia del equipo de Experiencia de la VPAF.
+Presentación web (SPA) del Modelo de gestión de experiencia del equipo de Experiencia de la VPAF,
+versión para **directivos**. Parte de una copia de `jjohnson-Coke/ModelodeExperiencia`; los cambios
+de esta versión se hacen solo en este repositorio.
 Construida con Vite, React 18, TypeScript (en modo estricto), Framer Motion, Tailwind CSS y lucide-react.
 
 ## Uso
