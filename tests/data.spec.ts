@@ -2,14 +2,9 @@ import { expect, test } from '@playwright/test';
 import { pillars, slides } from '../src/data/slides';
 
 test('lógica del contenido', () => {
-  expect(slides).toHaveLength(15);
+  expect(slides).toHaveLength(8);
   const order = pillars.map((p) => p.id);
   expect(order).toEqual(['madurez', 'conciencia', 'levantamiento', 'control', 'entrega']);
-
-  // Slides 5–9 siguen el mismo orden de pilares.
-  const detail = slides.filter((s) => s.kind === 'pillar-detail').map((s) => (s.kind === 'pillar-detail' ? s.pillarId : ''));
-  expect(detail).toEqual(order);
-  expect(slides.slice(3, 8).every((s) => s.kind === 'pillar-detail')).toBe(true);
 
   // Estado de journeys: los grupos suman el total.
   for (const s of slides) {
@@ -27,8 +22,8 @@ test('lógica del contenido', () => {
     }
   }
 
-  // Los textos visibles usan "bimestral" de forma consistente.
-  const all = JSON.stringify(slides);
+  // Los textos visibles (slides y pilares) usan "bimestral" de forma consistente.
+  const all = JSON.stringify({ slides, pillars });
   expect(all).not.toMatch(/bimensual|cada dos meses/i);
   expect(all.match(/bimestrales/g)?.length).toBeGreaterThanOrEqual(2);
 

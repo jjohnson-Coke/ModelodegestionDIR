@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
-const TOTAL = 15;
+const TOTAL = 8;
 const LOCK_WAIT = 420; // > bloqueo de navegación (350 ms)
 const REVEAL_WAIT = 5500; // tiempo para que terminen los revelados internos
 
@@ -55,7 +55,7 @@ test('recorre todas las slides con flechas y regresa', async ({ page }) => {
 test('hash: #/7 abre la slide 7 y #/99 redirige a la 1', async ({ page }) => {
   await page.goto('./#/7');
   await expectSlide(page, 7);
-  await expect(page.getByTestId('slide')).toHaveAttribute('data-slide-id', 'control');
+  await expect(page.getByTestId('slide')).toHaveAttribute('data-slide-id', 'siguientes-pasos');
 
   await page.goto('about:blank');
   await page.goto('./#/99');
@@ -102,30 +102,22 @@ test('resto de atajos, puntos, clics laterales y notas', async ({ page }) => {
   await expectSlide(page, 3);
 
   // Puntos de navegación.
-  await page.getByRole('button', { name: 'Ir a la diapositiva 10' }).click();
+  await page.getByRole('button', { name: 'Ir a la diapositiva 5' }).click();
   await page.waitForTimeout(LOCK_WAIT);
-  await expectSlide(page, 10);
+  await expectSlide(page, 5);
 
   // Clic en zonas laterales.
   const vp = page.viewportSize();
   if (!vp) throw new Error('Sin viewport');
   await page.mouse.click(vp.width * 0.9, vp.height * 0.5);
   await page.waitForTimeout(LOCK_WAIT);
-  await expectSlide(page, 11);
+  await expectSlide(page, 6);
   await page.mouse.click(vp.width * 0.1, vp.height * 0.5);
   await page.waitForTimeout(LOCK_WAIT);
-  await expectSlide(page, 10);
+  await expectSlide(page, 5);
   await page.mouse.click(vp.width * 0.5, vp.height * 0.5);
   await page.waitForTimeout(LOCK_WAIT);
-  await expectSlide(page, 10);
-
-  // Enlace "→ Levantamiento" en Conciencia.
-  await page.goto('./#/5');
   await expectSlide(page, 5);
-  await page.waitForTimeout(3500);
-  await page.getByRole('button', { name: 'Levantamiento' }).click();
-  await page.waitForTimeout(LOCK_WAIT);
-  await expectSlide(page, 6);
 
   // Notas del presentador: ocultas por defecto, N las alterna.
   await expect(page.getByTestId('notes')).toHaveCount(0);
@@ -137,7 +129,7 @@ test('resto de atajos, puntos, clics laterales y notas', async ({ page }) => {
   // F alterna pantalla completa sin errores.
   await press(page, 'f');
   await press(page, 'Escape');
-  await expectSlide(page, 6);
+  await expectSlide(page, 5);
 });
 
 test('botón de pantalla completa', async ({ page }) => {
@@ -272,7 +264,7 @@ test.describe('prefers-reduced-motion', () => {
     await press(page, 'Home');
     await expectSlide(page, 1);
     mkdirSync('screenshots/reduced', { recursive: true });
-    for (const n of [2, 6, 10, 11]) {
+    for (const n of [2, 3, 5, 6]) {
       await page.goto(`./#/${n}`);
       await page.waitForTimeout(REVEAL_WAIT);
       await page.screenshot({ path: `screenshots/reduced/${String(n).padStart(2, '0')}.png` });
