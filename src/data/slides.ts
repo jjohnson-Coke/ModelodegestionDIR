@@ -50,8 +50,8 @@ export interface Pillar {
   /** Verbo clave mostrado en el ciclo (slide 11). */
   verb: string;
   icon: IconName;
-  /** Entregable de la etapa (se muestra debajo de cada pilar en la vista general). */
-  deliverable: string;
+  /** Entregables de la etapa: los alcances del pilar (debajo de cada pilar en la vista general). */
+  deliverables: readonly string[];
 }
 
 /** Orden canónico de los pilares (se usa en todas las slides). */
@@ -62,7 +62,11 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Asegurar que el avance es real y aceptado por el equipo.',
     verb: 'Medir',
     icon: 'gauge',
-    deliverable: 'Respuestas del índice de madurez de CX',
+    deliverables: [
+      'Respuesta del índice de madurez de CX',
+      'Análisis del nivel de madurez',
+      'Recopilación en noviembre y mayo',
+    ],
   },
   {
     id: 'conciencia',
@@ -70,7 +74,11 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Conocer nuestro proceso y lo que es la experiencia.',
     verb: 'Entender',
     icon: 'lightbulb',
-    deliverable: 'Documentos de familiarización de experiencia',
+    deliverables: [
+      'Metodología de experiencia (7 pasos)',
+      'Mínimos a cubrir',
+      'Entregables otorgados',
+    ],
   },
   {
     id: 'levantamiento',
@@ -78,7 +86,11 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Facilitar y homologar las solicitudes de journeys y experiencias.',
     verb: 'Solicitar',
     icon: 'clipboard',
-    deliverable: 'Punto único de entrada',
+    deliverables: [
+      'Sistema de levantamiento de solicitudes independientes y estratégicas',
+      'Homologación de criterios de aceptación',
+      'Conocimiento de razones de aceptación o rechazo',
+    ],
   },
   {
     id: 'control',
@@ -86,7 +98,11 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Institucionalizar las responsabilidades y la mejora continua.',
     verb: 'Gobernar',
     icon: 'shield',
-    deliverable: 'Reuniones bimestrales',
+    deliverables: [
+      'Roles y funciones definidos',
+      'Reuniones de seguimiento bimestrales',
+      'Benchmark para actualización de journeys y experiencias',
+    ],
   },
   {
     id: 'entrega',
@@ -94,7 +110,11 @@ export const pillars: readonly Pillar[] = [
     purpose: 'Asegurar la priorización e implementación de los journeys y experiencias.',
     verb: 'Priorizar e implementar',
     icon: 'package',
-    deliverable: 'Fechas de priorización con TD',
+    deliverables: [
+      'Reporte a TD para priorización',
+      'Reporte a líderes de journey',
+      'Reporte a gerentes de producto',
+    ],
   },
 ];
 
@@ -542,7 +562,7 @@ export const allSlides: readonly SlideData[] = [
     title: 'Del diseño a la habilitación tecnológica',
     ownerLabel: 'Responsable',
     steps: [
-      { id: 'diseno', icon: 'pen', title: 'Diseño', owner: 'Experiencia', ledByExperience: true },
+      { id: 'diseno', icon: 'pen', title: 'Diseño', owner: 'Experiencia y líder funcional', ledByExperience: true },
       { id: 'procesos', icon: 'workflow', title: 'Procesos', owner: 'Equipo de Procesos' },
       {
         id: 'epicas',
@@ -559,13 +579,13 @@ export const allSlides: readonly SlideData[] = [
       },
     ],
     legend: {
-      experience: 'Lidera Experiencia',
+      experience: 'Lidera Experiencia con el líder funcional',
       others: 'Lidera otra área',
       support: 'Experiencia acompaña',
     },
-    note: 'Experiencia diseña el journey y acompaña su priorización hasta que pasa a habilitación tecnológica.',
+    note: 'Experiencia y el líder funcional diseñan el journey; Experiencia acompaña su priorización hasta que pasa a habilitación tecnológica.',
     notes:
-      'Un journey se habilita en cuatro pasos: Diseño (Experiencia), Procesos (Equipo de Procesos), Épicas, HU’s y priorización (Gerentes de producto, con acompañamiento de Experiencia) y Habilitación tecnológica y factibilidad (Transformación digital).',
+      'Un journey se habilita en cuatro pasos: Diseño (Experiencia y líder funcional), Procesos (Equipo de Procesos), Épicas, HU’s y priorización (Gerentes de producto, con acompañamiento de Experiencia) y Habilitación tecnológica y factibilidad (Transformación digital).',
   },
   {
     id: 'siguientes-pasos',
@@ -573,10 +593,9 @@ export const allSlides: readonly SlideData[] = [
     kicker: 'CÓMO LO HACEMOS REALIDAD',
     title: 'Siguientes pasos',
     steps: [
-      'Desarrollo de encuesta índice de madurez de CX',
-      'Presentación con equipo directivo',
-      'Socialización con equipos operativos',
-      'Envío de encuesta índice de madurez de CX',
+      'Envío de encuesta de índice de madurez',
+      'Asignación de funcionales por etapa de journey',
+      'Socialización con equipos operativos y funcionales',
     ],
     cadence: {
       title: 'Cadencia de gobernanza',
@@ -587,7 +606,7 @@ export const allSlides: readonly SlideData[] = [
     },
     repository: { title: 'Repositorio del modelo', label: 'SharePoint · Experiencia de aprendedores' },
     notes:
-      'Siguientes pasos: desarrollo de encuesta índice de madurez de CX, presentación con equipo directivo, socialización con equipos operativos y envío de encuesta índice de madurez de CX.',
+      'Siguientes pasos: envío de encuesta de índice de madurez, asignación de funcionales por etapa de journey y socialización con equipos operativos y funcionales.',
   },
   {
     id: 'cierre',

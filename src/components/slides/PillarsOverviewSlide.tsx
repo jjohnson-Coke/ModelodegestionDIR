@@ -48,19 +48,26 @@ export function PillarsOverviewSlide({ slide }: { slide: PillarsOverviewSlideDat
                   {i + 1}
                 </span>
               </span>
-              <div className="mt-8 flex w-full flex-1 flex-col rounded-card bg-brand-sky px-6 py-8 shadow-card m:mt-0 m:px-4 m:py-4">
-                <h3 className="text-[34px] font-extrabold text-brand-ink m:text-lg">{pillar.name}</h3>
-                <p className="mt-3 text-[23px] leading-[1.45] text-brand-ink-2 m:mt-1 m:text-sm">{pillar.purpose}</p>
+              <div className="mt-6 flex min-h-[200px] w-full flex-col rounded-card bg-brand-sky px-5 py-6 shadow-card m:mt-0 m:min-h-0 m:w-auto m:flex-1 m:px-4 m:py-4">
+                <h3 className="text-[32px] font-extrabold text-brand-ink m:text-lg">{pillar.name}</h3>
+                <p className="mt-2 text-[21px] leading-[1.4] text-brand-ink-2 m:mt-1 m:text-sm">{pillar.purpose}</p>
               </div>
-              {/* Entregable de la etapa, debajo del recuadro. */}
+              {/* Entregables de la etapa (los alcances del pilar), debajo del recuadro. */}
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: DELIVERABLES_START + i * 0.12, duration: 0.45, ease: EASE_OUT }}
-                className="mt-4 flex w-full flex-col items-center rounded-2xl border-2 border-dashed border-brand-cyan-dark/50 bg-white px-4 py-3 m:ml-[72px] m:mt-2 m:basis-full m:items-start m:px-3 m:py-2"
+                className="mt-4 flex w-full flex-1 flex-col rounded-2xl border-2 border-dashed border-brand-cyan-dark/50 bg-white px-4 py-3 text-left m:ml-[72px] m:mt-2 m:basis-full m:px-3 m:py-2"
               >
-                <span className="text-[14px] font-bold uppercase tracking-[0.18em] text-brand-cyan-ink m:text-[10px]">Entregable</span>
-                <span className="mt-1 text-[20px] font-bold leading-snug text-brand-ink m:text-sm">{pillar.deliverable}</span>
+                <span className="text-[14px] font-bold uppercase tracking-[0.18em] text-brand-cyan-ink m:text-[10px]">Entregables</span>
+                <ul className="mt-2 flex flex-col gap-2 m:mt-1 m:gap-1">
+                  {pillar.deliverables.map((d) => (
+                    <li key={d} className="flex gap-2 text-[19px] font-semibold leading-snug text-brand-ink m:text-xs">
+                      <span className="mt-[0.45em] h-2 w-2 shrink-0 rounded-full bg-brand-cyan m:h-1.5 m:w-1.5" aria-hidden />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             </motion.li>
           ))}
